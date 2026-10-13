@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Technical Skills",
+    "skills": [
+      { "label": "[Skill 1]", "icon": "generic" },
+      { "label": "[Skill 2]", "icon": "generic" },
+      { "label": "[Skill 3]", "icon": "generic" },
+      { "label": "[Skill 4]", "icon": "generic" },
+      { "label": "[Skill 5]", "icon": "generic" },
+      { "label": "[Skill 6]", "icon": "generic" }
+    ]
+  },
+  {
+    "name": "Tools & Soft Skills",
+    "skills": [
+      { "label": "[Skill 1]", "icon": "generic" },
+      { "label": "[Skill 2]", "icon": "generic" },
+      { "label": "[Skill 3]", "icon": "generic" },
+      { "label": "[Skill 4]", "icon": "generic" },
+      { "label": "[Skill 5]", "icon": "generic" }
+    ]
+  }
+]

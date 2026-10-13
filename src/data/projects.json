@@ -1,0 +1,80 @@
+[
+  {
+    "id": "project-1",
+    "slug": "proyek-1",
+    "title": "[Proyek 1]",
+    "description": "[Deskripsi singkat proyek 1]",
+    "thumbnail": "",
+    "year": "[Tahun]",
+    "role": "[Peran Anda]",
+    "problem": "[Masalah yang diselesaikan proyek 1]",
+    "solution": "[Solusi dan hasil proyek 1]",
+    "techStack": ["[Teknologi 1]", "[Teknologi 2]"],
+    "demoUrl": ""
+  },
+  {
+    "id": "project-2",
+    "slug": "proyek-2",
+    "title": "[Proyek 2]",
+    "description": "[Deskripsi singkat proyek 2]",
+    "thumbnail": "",
+    "year": "[Tahun]",
+    "role": "[Peran Anda]",
+    "problem": "[Masalah yang diselesaikan proyek 2]",
+    "solution": "[Solusi dan hasil proyek 2]",
+    "techStack": ["[Teknologi 1]", "[Teknologi 2]"],
+    "demoUrl": ""
+  },
+  {
+    "id": "project-3",
+    "slug": "proyek-3",
+    "title": "[Proyek 3]",
+    "description": "[Deskripsi singkat proyek 3]",
+    "thumbnail": "",
+    "year": "[Tahun]",
+    "role": "[Peran Anda]",
+    "problem": "[Masalah yang diselesaikan proyek 3]",
+    "solution": "[Solusi dan hasil proyek 3]",
+    "techStack": ["[Teknologi 1]", "[Teknologi 2]"],
+    "demoUrl": ""
+  },
+  {
+    "id": "project-4",
+    "slug": "proyek-4",
+    "title": "[Proyek 4]",
+    "description": "[Deskripsi singkat proyek 4]",
+    "thumbnail": "",
+    "year": "[Tahun]",
+    "role": "[Peran Anda]",
+    "problem": "[Masalah yang diselesaikan proyek 4]",
+    "solution": "[Solusi dan hasil proyek 4]",
+    "techStack": ["[Teknologi 1]", "[Teknologi 2]"],
+    "demoUrl": ""
+  },
+  {
+    "id": "project-5",
+    "slug": "proyek-5",
+    "title": "[Proyek 5]",
+    "description": "[Deskripsi singkat proyek 5]",
+    "thumbnail": "",
+    "year": "[Tahun]",
+    "role": "[Peran Anda]",
+    "problem": "[Masalah yang diselesaikan proyek 5]",
+    "solution": "[Solusi dan hasil proyek 5]",
+    "techStack": ["[Teknologi 1]", "[Teknologi 2]"],
+    "demoUrl": ""
+  },
+  {
+    "id": "project-6",
+    "slug": "proyek-6",
+    "title": "[Proyek 6]",
+    "description": "[Deskripsi singkat proyek 6]",
+    "thumbnail": "",
+    "year": "[Tahun]",
+    "role": "[Peran Anda]",
+    "problem": "[Masalah yang diselesaikan proyek 6]",
+    "solution": "[Solusi dan hasil proyek 6]",
+    "techStack": ["[Teknologi 1]", "[Teknologi 2]"],
+    "demoUrl": ""
+  }
+]

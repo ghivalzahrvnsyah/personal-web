@@ -1,0 +1,19 @@
+{
+  "education": {
+    "title": "[Program Studi]",
+    "organization": "[Universitas]",
+    "period": "[Tahun mulai]–[Tahun lulus]"
+  },
+  "experience": [
+    {
+      "title": "[Posisi]",
+      "organization": "[Organisasi]",
+      "period": "[Periode]"
+    },
+    {
+      "title": "[Posisi]",
+      "organization": "[Organisasi]",
+      "period": "[Periode]"
+    }
+  ]
+}
