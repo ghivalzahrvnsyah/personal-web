@@ -1,0 +1,68 @@
+<script setup lang="ts">
+import { useProfile } from "@/features/profile/composables/useProfile";
+import SectionWrapper from "@/layout/SectionWrapper.vue";
+import { computed } from "vue";
+
+const { profile } = useProfile();
+const firstName = computed(() => profile.value?.firstName ?? "[Nama Depan]");
+const lastName = computed(() => profile.value?.lastName ?? "[Nama Belakang]");
+const year = computed(() => profile.value?.year ?? "[Tahun]");
+const tagline = computed(() => profile.value?.tagline ?? "[Jabatan Profesional] — [Kalimat nilai yang Anda tawarkan]");
+const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
+</script>
+
+<template>
+  <SectionWrapper id="home" background="parchment">
+    <div class="relative flex min-h-hero-section flex-wrap items-center justify-between gap-12 overflow-hidden">
+      <div class="relative z-10 grid min-w-0 flex-1 gap-6 md:basis-hero-art">
+        <p class="font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo">
+          Portofolio · {{ year }}
+        </p>
+
+        <h1 class="grid justify-items-start font-display text-h1-mobile font-bold leading-none tracking-tight text-space-indigo md:text-h1">
+          <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">“{{ firstName }}</span>
+          <span>{{ lastName }}<span class="text-air-force-blue">.</span></span>
+        </h1>
+
+        <p class="max-w-tagline font-body text-tagline leading-relaxed text-twilight-indigo">
+          {{ tagline }}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-6">
+          <a
+            :href="cvUrl"
+            download
+            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo md:w-auto"
+          >
+            Download CV
+          </a>
+          <p class="font-body text-sm italic text-twilight-indigo">Karya terpilih hingga {{ year }}</p>
+        </div>
+      </div>
+
+      <div class="relative mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 md:mx-0 md:max-w-hero-art">
+        <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro md:h-hero-ring md:w-hero-ring" aria-hidden="true" />
+        <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue md:bottom-8 md:right-0 md:h-hero-accent md:w-hero-accent" aria-hidden="true" />
+        <div class="absolute left-1/2 top-1/2 flex h-hero-photo w-hero-photo -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo">
+          <img v-if="profile?.heroPhoto" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover" />
+          <span v-else>[Foto Profil]</span>
+        </div>
+        <svg aria-hidden="true" class="pointer-events-none absolute -left-8 top-16 hidden h-12 w-12 text-air-force-blue md:block" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 3 24 16 37 20 24 24 20 37 16 24 3 20 16 16 20 3Z" />
+          <path d="M34 4v7m-3.5-3.5h7" />
+        </svg>
+        <svg aria-hidden="true" class="pointer-events-none absolute -left-8 bottom-10 hidden h-16 w-16 text-space-indigo md:block" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="8" y="10" width="48" height="34" rx="4" /><path d="M20 54h24M26 44v10m12-10v10M20 22l7 6-7 6m14 0h10" />
+        </svg>
+        <svg aria-hidden="true" class="pointer-events-none absolute -right-8 bottom-10 hidden h-16 w-16 text-space-indigo md:block" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 38a18 18 0 1 1 20 0c-4 3-4 7-4 9H26c0-2 0-6-4-9Z" /><path d="M26 53h12m-10 5h8M32 4v5m22 9-5 3M10 18l5 3m-2 20 5-2m28 0 5 2" />
+        </svg>
+      </div>
+
+      <div class="pointer-events-none absolute right-6 top-10 hidden font-body text-sm font-semibold tracking-widest text-twilight-indigo text-vertical xl:block">
+        PORTOFOLIO {{ year }}
+      </div>
+
+    </div>
+  </SectionWrapper>
+</template>
