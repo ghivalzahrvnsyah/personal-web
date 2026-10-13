@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: false;
+}
+
+@plugin "daisyui/theme" {
+  name: "retro-vintage";
+  default: true;
+  color-scheme: light;
+  --color-base-100: #F7F2EB;
+  --color-base-200: #EAE2D6;
+  --color-base-content: #1E2749;
+  --color-primary: #1E2749;
+  --color-primary-content: #F7F2EB;
+  --color-secondary: #273469;
+  --color-accent: #468FAF;
+  --color-error: #8C2F2A;
+  --radius-box: 2rem;
+  --radius-field: 0.75rem;
+  --border: 2px;
+}
+
+@theme {
+  --color-*: initial;
+  --color-parchment: #F7F2EB;
+  --color-bone: #EAE2D6;
+  --color-space-indigo: #1E2749;
+  --color-twilight-indigo: #273469;
+  --color-air-force-blue: #468FAF;
+  --color-brick: #8C2F2A;
+
+  --font-display: "Fredoka", "Trebuchet MS", sans-serif;
+  --font-body: "Lexend", system-ui, sans-serif;
+
+  --container-content: 70rem;
+  --container-narrow: 40rem;
+  --container-modal: 45rem;
+  --container-tagline: 35rem;
+  --container-hero-art: 21.25rem;
+  --container-hero-art-mobile: 17rem;
+  --container-about-art: 19.5rem;
+  --spacing-nav: 4.5rem;
+  --radius-card: 2rem;
+  --radius-block: 3rem;
+  --radius-control: 0.75rem;
+  --radius-chip: 1rem;
+  --radius-pill: 9999px;
+  --text-ui: 0.9375rem;
+  --text-cta: 1.1875rem;
+  --text-h1: 5rem;
+  --text-h1-mobile: 2.75rem;
+  --text-h2-lg: 4rem;
+  --text-h2: 3.5rem;
+  --text-h2-modal: 2.5rem;
+  --text-h3: 1.5rem;
+  --text-card-title: 1.25rem;
+  --text-tagline: 1.375rem;
+  --text-body-lg: 1.125rem;
+  --tracking-eyebrow: 0.16em;
+  --spacing-hero-section: 40rem;
+  --spacing-hero-ring-mobile: 16rem;
+  --spacing-hero-photo-mobile: 14rem;
+  --spacing-hero-accent-mobile: 12rem;
+  --spacing-hero-art: 21.25rem;
+  --spacing-hero-ring: 20rem;
+  --spacing-hero-photo: 17.5rem;
+  --spacing-hero-accent: 15rem;
+  --spacing-about-art: 19.5rem;
+  --spacing-about-accent-width: 17.5rem;
+  --spacing-about-accent-height: 15rem;
+  --spacing-about-photo-width: 15rem;
+  --spacing-about-photo-height: 17.5rem;
+  --duration-retro: 250ms;
+}
+
+@utility border-retro {
+  border: 2px solid var(--color-space-indigo);
+}
+
+@utility shadow-retro {
+  box-shadow: 4px 4px 0 #273469;
+}
+
+@utility shadow-retro-lg {
+  box-shadow: 8px 8px 0 #273469;
+}
+
+@utility bg-dialog-overlay {
+  background-color: rgba(30, 39, 73, 0.72);
+}
+
+@utility text-vertical {
+  writing-mode: vertical-rl;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--spacing-nav);
+  }
+
+  body {
+    background-color: var(--color-parchment);
+    color: var(--color-space-indigo);
+    font-family: var(--font-body);
+  }
+
+  #app {
+    overflow-x: clip;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0ms !important;
+    }
+  }
+}
