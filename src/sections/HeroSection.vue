@@ -15,16 +15,16 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
   <SectionWrapper id="home" background="parchment" wide>
     <div class="relative flex min-h-hero-section flex-col items-center justify-center gap-8 overflow-hidden lg:flex-row lg:justify-between lg:gap-12">
       <div class="relative z-10 order-2 grid w-full min-w-0 justify-items-center gap-6 text-center lg:order-1 lg:w-auto lg:flex-1 lg:justify-items-start lg:text-left lg:basis-hero-art">
-        <p class="font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo">
+        <p class="font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo lg:text-base">
           Portofolio · {{ year }}
         </p>
 
-        <h1 class="grid justify-items-center font-display text-[clamp(2rem,5vw,4.25rem)] font-bold leading-none tracking-tight text-space-indigo">
-          <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">“{{ firstName }}</span>
+        <h1 class="grid justify-items-center font-display text-[clamp(2.5rem,5vw,5rem)] font-bold leading-none tracking-tight text-space-indigo lg:text-[clamp(3.75rem,5.5vw,5rem)]">
+          <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">{{ firstName }}</span>
           <span>{{ lastName }}<span class="text-air-force-blue">.</span></span>
         </h1>
 
-        <p class="max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo">
+        <p class="max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:text-[clamp(1.5rem,2vw,1.75rem)]">
           {{ tagline }}
         </p>
 
@@ -32,18 +32,18 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
           <a
             :href="cvUrl"
             download
-            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo lg:w-auto"
+            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo lg:w-auto lg:text-[1.375rem]"
           >
             Download CV
           </a>
-          <p class="font-body text-sm italic text-twilight-indigo">Karya terpilih hingga {{ year }}</p>
+          <p class="font-body text-sm italic text-twilight-indigo lg:text-base">Karya terpilih hingga {{ year }}</p>
         </div>
       </div>
 
-      <div class="relative order-1 mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 lg:order-2 lg:mx-0 lg:max-w-hero-art">
-        <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-hero-ring lg:w-hero-ring" aria-hidden="true" />
-        <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-hero-accent lg:w-hero-accent" aria-hidden="true" />
-        <div class="absolute left-1/2 top-1/2 flex h-hero-photo-mobile w-hero-photo-mobile -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo lg:h-hero-photo lg:w-hero-photo">
+      <div class="relative order-1 mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 lg:order-2 lg:mx-0 lg:max-w-[clamp(24rem,31vw,30rem)]">
+        <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-[clamp(22rem,31vw,30rem)] lg:w-[clamp(22rem,31vw,30rem)]" aria-hidden="true" />
+        <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-[clamp(16rem,20vw,20rem)] lg:w-[clamp(16rem,20vw,20rem)]" aria-hidden="true" />
+        <div class="absolute left-1/2 top-1/2 flex h-hero-photo-mobile w-hero-photo-mobile -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo lg:h-[clamp(18rem,24vw,24rem)] lg:w-[clamp(18rem,24vw,24rem)]">
           <img v-if="profile?.heroPhoto" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover" />
           <span v-else>[Foto Profil]</span>
         </div>
