@@ -1,11 +1,83 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 
 interface Props {
   icon: string;
+  name?: string;
 }
 
 const props = defineProps<Props>();
+const customIconLoadFailed = ref(false);
+const brandLogoLoadFailed = ref(false);
+
+watch(() => [props.icon, props.name], () => {
+  customIconLoadFailed.value = false;
+  brandLogoLoadFailed.value = false;
+});
+
+const brandLogoSlugs: Record<string, string> = {
+  android: "android",
+  "android studio": "androidstudio",
+  angular: "angular",
+  astro: "astro",
+  "c sharp": "csharp",
+  "c#": "csharp",
+  css: "css3",
+  dart: "dart",
+  docker: "docker",
+  figma: "figma",
+  flutter: "flutter",
+  go: "go",
+  golang: "go",
+  html: "html5",
+  java: "java",
+  javascript: "javascript",
+  js: "javascript",
+  kotlin: "kotlin",
+  laravel: "laravel",
+  linux: "linux",
+  "next.js": "nextdotjs",
+  nextjs: "nextdotjs",
+  n8n: "n8n",
+  node: "nodedotjs",
+  "node.js": "nodedotjs",
+  nuxt: "nuxt",
+  php: "php",
+  postgresql: "postgresql",
+  postman: "postman",
+  python: "python",
+  react: "react",
+  rust: "rust",
+  svelte: "svelte",
+  supabase: "supabase",
+  tailwind: "tailwindcss",
+  "tailwind css": "tailwindcss",
+  typescript: "typescript",
+  ts: "typescript",
+  vscode: "visualstudiocode",
+  "visual studio code": "visualstudiocode",
+  vue: "vuedotjs",
+  "vue.js": "vuedotjs",
+  wordpress: "wordpress",
+};
+
+const logoUrl = computed(() => {
+  const iconUrl = props.icon.trim();
+  if (/^https?:\/\//i.test(iconUrl) && !customIconLoadFailed.value) return iconUrl;
+
+  const key = props.name?.trim().toLowerCase();
+  const slug = key ? brandLogoSlugs[key] : undefined;
+  return slug && !brandLogoLoadFailed.value ? `https://cdn.simpleicons.org/${slug}/ffffff` : "";
+});
+
+function handleLogoError() {
+  if (/^https?:\/\//i.test(props.icon.trim()) && !customIconLoadFailed.value) {
+    customIconLoadFailed.value = true;
+    return;
+  }
+
+  brandLogoLoadFailed.value = true;
+}
 
 const iconPaths: Record<string, string[]> = {
   generic: ["M12 3 14.8 9.2 21 12l-6.2 2.8L12 21l-2.8-6.2L3 12l6.2-2.8L12 3Z"],
@@ -18,9 +90,19 @@ const paths = computed(() => iconPaths[props.icon] ?? iconPaths.generic);
 </script>
 
 <template>
-  <svg
+  <img
+    v-if="logoUrl"
+    :src="logoUrl"
+    alt=""
     aria-hidden="true"
-    class="h-5 w-5 shrink-0 text-space-indigo"
+    class="h-5 w-5 shrink-0 object-contain"
+    loading="lazy"
+    @error="handleLogoError"
+  />
+  <svg
+    v-else
+    aria-hidden="true"
+    class="h-5 w-5 shrink-0 text-white"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"

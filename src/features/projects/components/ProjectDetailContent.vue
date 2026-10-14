@@ -29,12 +29,8 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
     </div>
 
     <div class="grid gap-6 p-8">
-      <p class="font-body text-ui font-medium text-twilight-indigo">{{ project.year }} · {{ project.role }}</p>
       <h2 class="font-display text-h2-modal font-bold text-space-indigo">{{ project.title }}</h2>
-      <div class="grid gap-4 font-body text-base leading-relaxed text-twilight-indigo">
-        <p>{{ project.problem }}</p>
-        <p>{{ project.solution }}</p>
-      </div>
+      <p class="font-body text-base leading-relaxed text-twilight-indigo">{{ project.description }}</p>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
         <li v-for="technology in project.techStack.slice(0, 5)" :key="technology">
           <BaseChip :label="technology" variant="tag" />
@@ -50,7 +46,16 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
         >
           Lihat proyek
         </BaseButton>
-        <p v-else class="font-body text-sm text-twilight-indigo">[Tautan proyek belum tersedia]</p>
+        <BaseButton
+          v-if="project.githubUrl"
+          variant="secondary"
+          :href="project.githubUrl"
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </BaseButton>
+        <p v-if="!project.demoUrl && !project.githubUrl" class="font-body text-sm text-twilight-indigo">[Tautan proyek belum tersedia]</p>
       </div>
     </div>
   </article>

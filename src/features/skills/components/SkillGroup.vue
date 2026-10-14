@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import BaseChip from "@/components/BaseChip.vue";
 import SkillIcon from "@/features/skills/components/SkillIcon.vue";
 import type { SkillGroup as SkillGroupData } from "@/features/skills/types/skill.types";
 
@@ -12,16 +11,18 @@ defineProps<Props>();
 
 <template>
   <article>
-    <h3 class="border-b-2 border-space-indigo pb-2 font-display text-h3 font-semibold text-space-indigo">
+    <h3 class="text-center font-display text-h3 font-semibold text-space-indigo">
       {{ group.name }}
     </h3>
-    <ul class="mt-6 flex flex-wrap gap-4">
+    <ul class="mt-6 flex flex-wrap justify-center gap-4">
       <li v-for="skill in group.skills" :key="skill.label">
-        <BaseChip :label="skill.label" variant="skill">
-          <template #icon>
-            <SkillIcon :icon="skill.icon" />
-          </template>
-        </BaseChip>
+        <span
+          class="inline-flex min-h-12 max-w-full items-center gap-2 rounded-control border-retro px-4 py-2 font-display text-sm font-semibold text-white shadow-retro sm:text-base"
+          :style="{ backgroundColor: skill.color }"
+        >
+          <SkillIcon :icon="skill.icon" :name="skill.label" />
+          <span>{{ skill.label }}</span>
+        </span>
       </li>
     </ul>
   </article>

@@ -8,7 +8,7 @@ const { skillGroups } = useSkills();
 
 <template>
   <SectionWrapper id="skills" background="parchment" label="Skills">
-    <div class="grid gap-12 md:grid-cols-2">
+    <div class="grid gap-12">
       <SkillGroup v-for="group in skillGroups" :key="group.name" :group="group" />
     </div>
   </SectionWrapper>
