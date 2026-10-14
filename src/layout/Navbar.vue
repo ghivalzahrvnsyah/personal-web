@@ -31,9 +31,9 @@ function closeMenu() {
           v-for="link in links"
           :key="link.id"
           :href="`#${link.id}`"
-          class="border-b-2 py-2 font-body text-ui font-medium transition-colors duration-200 hover:border-air-force-blue focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
+          class="border-b-2 py-2 font-body text-ui font-medium transition-colors duration-200 hover:text-space-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
           :class="activeSection === link.id ? 'border-air-force-blue text-space-indigo' : 'border-transparent text-twilight-indigo'"
-          :aria-current="activeSection === link.id ? 'page' : undefined"
+          :aria-current="activeSection === link.id ? 'location' : undefined"
           @click="closeMenu"
         >
           {{ link.label }}
