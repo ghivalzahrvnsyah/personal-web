@@ -35,6 +35,7 @@
   --font-body: "Lexend", system-ui, sans-serif;
 
   --container-content: 70rem;
+  --container-content-wide: 90rem;
   --container-narrow: 40rem;
   --container-modal: 45rem;
   --container-tagline: 35rem;

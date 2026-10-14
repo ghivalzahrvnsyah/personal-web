@@ -12,14 +12,14 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
 </script>
 
 <template>
-  <SectionWrapper id="home" background="parchment">
+  <SectionWrapper id="home" background="parchment" wide>
     <div class="relative flex min-h-hero-section flex-wrap items-center justify-between gap-12 overflow-hidden">
-      <div class="relative z-10 grid min-w-0 flex-1 gap-6 md:basis-hero-art">
+      <div class="relative z-10 order-2 grid w-full min-w-0 flex-1 justify-items-center gap-6 text-center md:order-1 md:w-auto md:justify-items-start md:text-left md:basis-hero-art">
         <p class="font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo">
           Portofolio · {{ year }}
         </p>
 
-        <h1 class="grid justify-items-start font-display text-h1-mobile font-bold leading-none tracking-tight text-space-indigo md:text-h1">
+        <h1 class="grid justify-items-center font-display text-h1-mobile font-bold leading-none tracking-tight text-space-indigo md:justify-items-start md:text-h1">
           <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">“{{ firstName }}</span>
           <span>{{ lastName }}<span class="text-air-force-blue">.</span></span>
         </h1>
@@ -28,7 +28,7 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
           {{ tagline }}
         </p>
 
-        <div class="flex flex-wrap items-center gap-6">
+        <div class="flex w-full flex-wrap items-center justify-center gap-6 md:w-auto md:justify-start">
           <a
             :href="cvUrl"
             download
@@ -40,10 +40,10 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
         </div>
       </div>
 
-      <div class="relative mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 md:mx-0 md:max-w-hero-art">
+      <div class="relative order-1 mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 md:order-2 md:mx-0 md:max-w-hero-art">
         <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro md:h-hero-ring md:w-hero-ring" aria-hidden="true" />
         <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue md:bottom-8 md:right-0 md:h-hero-accent md:w-hero-accent" aria-hidden="true" />
-        <div class="absolute left-1/2 top-1/2 flex h-hero-photo w-hero-photo -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo">
+        <div class="absolute left-1/2 top-1/2 flex h-hero-photo-mobile w-hero-photo-mobile -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo md:h-hero-photo md:w-hero-photo">
           <img v-if="profile?.heroPhoto" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover" />
           <span v-else>[Foto Profil]</span>
         </div>

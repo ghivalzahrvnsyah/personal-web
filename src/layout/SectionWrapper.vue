@@ -6,11 +6,13 @@ interface Props {
   background?: "parchment" | "bone";
   label?: string;
   narrow?: boolean;
+  wide?: boolean;
 }
 
 withDefaults(defineProps<Props>(), {
   background: "parchment",
   narrow: false,
+  wide: false,
 });
 </script>
 
@@ -20,7 +22,7 @@ withDefaults(defineProps<Props>(), {
     class="border-t-2 border-space-indigo py-12 md:py-16"
     :class="background === 'bone' ? 'bg-bone' : 'bg-parchment'"
   >
-    <Container :narrow="narrow">
+    <Container :narrow="narrow" :wide="wide">
       <header v-if="label" class="mb-8 flex items-center gap-6">
         <p class="shrink-0 font-body text-ui font-medium text-twilight-indigo">{{ label }}</p>
         <span class="h-0 flex-1 border-t-2 border-space-indigo" aria-hidden="true" />
