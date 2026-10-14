@@ -4,31 +4,38 @@ const DEFAULT_SECTION_IDS = ["home", "about", "skills", "projects", "contact"];
 
 export function useActiveSection(sectionIds: string[] = DEFAULT_SECTION_IDS) {
   const activeSection = ref(sectionIds[0] ?? "");
-  let observer: IntersectionObserver | undefined;
+  let animationFrame = 0;
 
-  onMounted(() => {
-    if (!("IntersectionObserver" in window)) return;
-
+  function updateActiveSection() {
+    animationFrame = 0;
+    const marker = Math.min(window.innerHeight * 0.32, window.innerHeight - 1);
     const sections = sectionIds
       .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => section !== null);
+      .filter((section): section is HTMLElement => section !== null)
+      .filter((section) => section.getBoundingClientRect().top <= marker);
+    const currentSection = sections[sections.length - 1];
 
-    observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if (currentSection) activeSection.value = currentSection.id;
+  }
 
-        const currentSection = visibleSections[0]?.target;
-        if (currentSection instanceof HTMLElement) activeSection.value = currentSection.id;
-      },
-      { rootMargin: "-72px 0px -55% 0px", threshold: 0 },
-    );
+  function scheduleUpdate() {
+    if (animationFrame) return;
+    animationFrame = window.requestAnimationFrame(updateActiveSection);
+  }
 
-    sections.forEach((section) => observer?.observe(section));
+  onMounted(() => {
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    window.addEventListener("hashchange", scheduleUpdate);
+    scheduleUpdate();
   });
 
-  onUnmounted(() => observer?.disconnect());
+  onUnmounted(() => {
+    window.removeEventListener("scroll", scheduleUpdate);
+    window.removeEventListener("resize", scheduleUpdate);
+    window.removeEventListener("hashchange", scheduleUpdate);
+    if (animationFrame) window.cancelAnimationFrame(animationFrame);
+  });
 
   return { activeSection };
 }

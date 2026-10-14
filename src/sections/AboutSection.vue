@@ -2,8 +2,15 @@
 import { useProfile } from "@/features/profile/composables/useProfile";
 import BaseTimelineItem from "@/components/BaseTimelineItem.vue";
 import SectionWrapper from "@/layout/SectionWrapper.vue";
+import { ref } from "vue";
 
 const { profile, timeline } = useProfile();
+const aboutPhotoFailed = ref(false);
+
+function handleAboutPhotoError(event: Event) {
+  aboutPhotoFailed.value = true;
+  console.error("Failed to load about profile photo:", (event.currentTarget as HTMLImageElement).src);
+}
 </script>
 
 <template>
@@ -13,7 +20,7 @@ const { profile, timeline } = useProfile();
         <div class="relative mx-auto aspect-square w-full max-w-[16rem] shrink-0 lg:mx-0 lg:max-w-about-art">
           <div class="absolute bottom-0 left-0 h-[12rem] w-[14rem] rounded-block border-retro bg-air-force-blue lg:h-about-accent-height lg:w-about-accent-width" aria-hidden="true" />
           <div class="absolute right-0 top-0 flex h-[14rem] w-[12rem] items-center justify-center overflow-hidden rounded-card border-retro bg-parchment font-body text-sm text-twilight-indigo lg:h-about-photo-height lg:w-about-photo-width">
-            <img v-if="profile?.aboutPhoto" :src="profile.aboutPhoto" alt="Foto formal" class="h-full w-full object-cover" loading="lazy" />
+            <img v-if="profile?.aboutPhoto && !aboutPhotoFailed" :src="profile.aboutPhoto" alt="Foto formal" class="h-full w-full object-cover" loading="lazy" @error="handleAboutPhotoError" />
             <span v-else>[Foto Formal]</span>
           </div>
           <svg aria-hidden="true" class="pointer-events-none absolute -right-8 top-8 hidden h-8 w-8 text-air-force-blue md:block" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

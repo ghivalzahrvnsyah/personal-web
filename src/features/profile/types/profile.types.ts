@@ -1,3 +1,9 @@
+export interface ProfilePhoto {
+  id: number;
+  avatar_url: string | null;
+  profile_photo_url: string | null;
+}
+
 export interface Profile {
   firstName: string;
   lastName: string;
