@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useProfile } from "@/features/profile/composables/useProfile";
 import SectionWrapper from "@/layout/SectionWrapper.vue";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const { profile } = useProfile();
 const firstName = computed(() => profile.value?.firstName ?? "[Nama Depan]");
@@ -9,6 +9,12 @@ const lastName = computed(() => profile.value?.lastName ?? "[Nama Belakang]");
 const year = computed(() => profile.value?.year ?? "[Tahun]");
 const tagline = computed(() => profile.value?.tagline ?? "[Jabatan Profesional] — [Kalimat nilai yang Anda tawarkan]");
 const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
+const heroPhotoFailed = ref(false);
+
+function handleHeroPhotoError(event: Event) {
+  heroPhotoFailed.value = true;
+  console.error("Failed to load hero profile photo:", (event.currentTarget as HTMLImageElement).src);
+}
 </script>
 
 <template>
@@ -44,7 +50,7 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
         <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-[clamp(22rem,31vw,30rem)] lg:w-[clamp(22rem,31vw,30rem)]" aria-hidden="true" />
         <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-[clamp(16rem,20vw,20rem)] lg:w-[clamp(16rem,20vw,20rem)]" aria-hidden="true" />
         <div class="absolute left-1/2 top-1/2 flex h-hero-photo-mobile w-hero-photo-mobile -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo lg:h-[clamp(18rem,24vw,24rem)] lg:w-[clamp(18rem,24vw,24rem)]">
-          <img v-if="profile?.heroPhoto" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover" />
+          <img v-if="profile?.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover" @error="handleHeroPhotoError" />
           <span v-else>[Foto Profil]</span>
         </div>
         <svg aria-hidden="true" class="pointer-events-none absolute -left-8 top-16 hidden h-12 w-12 text-air-force-blue md:block" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
