@@ -13,26 +13,26 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
 
 <template>
   <SectionWrapper id="home" background="parchment" wide>
-    <div class="relative flex min-h-hero-section flex-wrap items-center justify-between gap-12 overflow-hidden">
-      <div class="relative z-10 order-2 grid w-full min-w-0 flex-1 justify-items-center gap-6 text-center md:order-1 md:w-auto md:justify-items-start md:text-left md:basis-hero-art">
+    <div class="relative flex min-h-hero-section flex-col items-center justify-center gap-8 overflow-hidden lg:flex-row lg:justify-between lg:gap-12">
+      <div class="relative z-10 order-2 grid w-full min-w-0 justify-items-center gap-6 text-center lg:order-1 lg:w-auto lg:flex-1 lg:justify-items-start lg:text-left lg:basis-hero-art">
         <p class="font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo">
           Portofolio · {{ year }}
         </p>
 
-        <h1 class="grid justify-items-center font-display text-h1-mobile font-bold leading-none tracking-tight text-space-indigo md:justify-items-start md:text-h1">
+        <h1 class="grid justify-items-center font-display text-[clamp(2rem,5vw,4.25rem)] font-bold leading-none tracking-tight text-space-indigo">
           <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">“{{ firstName }}</span>
           <span>{{ lastName }}<span class="text-air-force-blue">.</span></span>
         </h1>
 
-        <p class="max-w-tagline font-body text-tagline leading-relaxed text-twilight-indigo">
+        <p class="max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo">
           {{ tagline }}
         </p>
 
-        <div class="flex w-full flex-wrap items-center justify-center gap-6 md:w-auto md:justify-start">
+        <div class="flex w-full flex-wrap items-center justify-center gap-6 lg:w-auto lg:justify-start">
           <a
             :href="cvUrl"
             download
-            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo md:w-auto"
+            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo lg:w-auto"
           >
             Download CV
           </a>
@@ -40,10 +40,10 @@ const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
         </div>
       </div>
 
-      <div class="relative order-1 mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 md:order-2 md:mx-0 md:max-w-hero-art">
-        <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro md:h-hero-ring md:w-hero-ring" aria-hidden="true" />
-        <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue md:bottom-8 md:right-0 md:h-hero-accent md:w-hero-accent" aria-hidden="true" />
-        <div class="absolute left-1/2 top-1/2 flex h-hero-photo-mobile w-hero-photo-mobile -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo md:h-hero-photo md:w-hero-photo">
+      <div class="relative order-1 mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 lg:order-2 lg:mx-0 lg:max-w-hero-art">
+        <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-hero-ring lg:w-hero-ring" aria-hidden="true" />
+        <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-hero-accent lg:w-hero-accent" aria-hidden="true" />
+        <div class="absolute left-1/2 top-1/2 flex h-hero-photo-mobile w-hero-photo-mobile -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo lg:h-hero-photo lg:w-hero-photo">
           <img v-if="profile?.heroPhoto" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover" />
           <span v-else>[Foto Profil]</span>
         </div>

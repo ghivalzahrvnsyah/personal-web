@@ -37,14 +37,14 @@ const { profile, timeline } = useProfile();
       <div class="grid gap-12 lg:grid-cols-2">
         <section class="grid content-start gap-6" aria-labelledby="education-heading">
           <h3 id="education-heading" class="font-display text-h3 font-semibold text-space-indigo">Pendidikan</h3>
-          <ul v-if="timeline" class="grid list-none gap-6 p-0">
+          <ul v-if="timeline" class="grid list-none gap-0 p-0">
             <BaseTimelineItem
               :title="timeline.education.title"
               :organization="timeline.education.organization"
               :period="timeline.education.period"
             />
           </ul>
-          <ul v-else class="grid list-none gap-6 p-0">
+          <ul v-else class="grid list-none gap-0 p-0">
             <BaseTimelineItem title="[Program Studi]" organization="[Universitas]" period="[Tahun mulai]–[Tahun lulus]" />
           </ul>
         </section>
@@ -55,7 +55,7 @@ const { profile, timeline } = useProfile();
             <path d="M8 31c3-12 11-20 24-23-3 13-11 21-23 24Z" />
             <path d="M9 32c5-7 10-12 18-18" />
           </svg>
-          <ul v-if="timeline" class="grid list-none gap-6 p-0">
+          <ul v-if="timeline" class="grid list-none gap-0 p-0">
             <BaseTimelineItem
               v-for="(entry, index) in timeline.experience"
               :key="`${entry.title}-${index}`"
@@ -64,7 +64,7 @@ const { profile, timeline } = useProfile();
               :period="entry.period"
             />
           </ul>
-          <ul v-else class="grid list-none gap-6 p-0">
+          <ul v-else class="grid list-none gap-0 p-0">
             <BaseTimelineItem title="[Posisi]" organization="[Organisasi]" period="[Periode]" />
             <BaseTimelineItem title="[Posisi]" organization="[Organisasi]" period="[Periode]" />
           </ul>
