@@ -9,10 +9,10 @@ const { profile, timeline } = useProfile();
 <template>
   <SectionWrapper id="about" background="bone" label="About" wide>
     <div class="grid gap-12">
-      <div class="flex flex-wrap items-center gap-12">
-        <div class="relative mx-auto aspect-square w-full max-w-[16rem] shrink-0 md:mx-0 md:max-w-about-art">
-          <div class="absolute bottom-0 left-0 h-[12rem] w-[14rem] rounded-block border-retro bg-air-force-blue md:h-about-accent-height md:w-about-accent-width" aria-hidden="true" />
-          <div class="absolute right-0 top-0 flex h-[14rem] w-[12rem] items-center justify-center overflow-hidden rounded-card border-retro bg-parchment font-body text-sm text-twilight-indigo md:h-about-photo-height md:w-about-photo-width">
+      <div class="flex flex-col items-center gap-12 lg:flex-row">
+        <div class="relative mx-auto aspect-square w-full max-w-[16rem] shrink-0 lg:mx-0 lg:max-w-about-art">
+          <div class="absolute bottom-0 left-0 h-[12rem] w-[14rem] rounded-block border-retro bg-air-force-blue lg:h-about-accent-height lg:w-about-accent-width" aria-hidden="true" />
+          <div class="absolute right-0 top-0 flex h-[14rem] w-[12rem] items-center justify-center overflow-hidden rounded-card border-retro bg-parchment font-body text-sm text-twilight-indigo lg:h-about-photo-height lg:w-about-photo-width">
             <img v-if="profile?.aboutPhoto" :src="profile.aboutPhoto" alt="Foto formal" class="h-full w-full object-cover" loading="lazy" />
             <span v-else>[Foto Formal]</span>
           </div>
@@ -21,8 +21,8 @@ const { profile, timeline } = useProfile();
           </svg>
         </div>
 
-        <div class="grid min-w-0 flex-1 gap-6 md:basis-96">
-          <h2 class="font-display text-h2-lg font-bold text-space-indigo">
+        <div class="grid w-full min-w-0 flex-1 gap-6 lg:basis-96">
+          <h2 class="font-display text-[clamp(2.5rem,7vw,4rem)] text-center font-bold text-space-indigo lg:text-left">
             <span aria-hidden="true">“</span>HELLO<span class="text-air-force-blue">.</span>
           </h2>
           <p class="font-body text-body-lg leading-relaxed text-twilight-indigo">
