@@ -44,11 +44,13 @@ function handleAboutPhotoError(event: Event) {
       <div class="grid gap-12 lg:grid-cols-2">
         <section class="grid content-start gap-6" aria-labelledby="education-heading">
           <h3 id="education-heading" class="font-display text-h3 font-semibold text-space-indigo">Pendidikan</h3>
-          <ul v-if="timeline" class="grid list-none gap-0 p-0">
+          <ul v-if="timeline?.education.length" class="grid list-none gap-0 p-0">
             <BaseTimelineItem
-              :title="timeline.education.title"
-              :organization="timeline.education.organization"
-              :period="timeline.education.period"
+              v-for="(entry, index) in timeline.education"
+              :key="`${entry.title}-${index}`"
+              :title="entry.title"
+              :organization="entry.organization"
+              :period="entry.period"
             />
           </ul>
           <ul v-else class="grid list-none gap-0 p-0">
@@ -62,7 +64,7 @@ function handleAboutPhotoError(event: Event) {
             <path d="M8 31c3-12 11-20 24-23-3 13-11 21-23 24Z" />
             <path d="M9 32c5-7 10-12 18-18" />
           </svg>
-          <ul v-if="timeline" class="grid list-none gap-0 p-0">
+          <ul v-if="timeline?.experience.length" class="grid list-none gap-0 p-0">
             <BaseTimelineItem
               v-for="(entry, index) in timeline.experience"
               :key="`${entry.title}-${index}`"
