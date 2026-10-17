@@ -19,5 +19,5 @@ import SkillsSection from "@/sections/SkillsSection.vue";
     <ContactSection />
   </main>
   <Footer />
-  <BackToTopButton />
+  <BackToTopButton /> 
 </template>
