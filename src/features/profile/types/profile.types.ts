@@ -23,6 +23,6 @@ export interface TimelineEntry {
 }
 
 export interface Timeline {
-  education: TimelineEntry;
+  education: TimelineEntry[];
   experience: TimelineEntry[];
 }

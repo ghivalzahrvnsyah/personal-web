@@ -1,10 +1,39 @@
 import profileData from "@/data/profile.json";
 import timelineData from "@/data/timeline.json";
-import type { Profile, ProfilePhoto, Timeline } from "@/features/profile/types/profile.types";
+import type { Profile, ProfilePhoto, Timeline, TimelineEntry } from "@/features/profile/types/profile.types";
 import { supabase } from "@/lib/supabaseClient";
 
 const profile = profileData as Profile;
 const timeline = timelineData as Timeline;
+
+const monthNumbers: Record<string, number> = {
+  januari: 1, january: 1, februari: 2, february: 2, maret: 3, march: 3,
+  april: 4, mei: 5, may: 5, juni: 6, june: 6, juli: 7, july: 7,
+  agustus: 8, august: 8, september: 9, oktober: 10, october: 10,
+  november: 11, desember: 12, december: 12,
+};
+
+function getPeriodRank(period: string): number {
+  const normalized = period.toLowerCase();
+  if (/sekarang|saat ini|present|current|ongoing/.test(normalized)) return Number.POSITIVE_INFINITY;
+
+  const dates = [...normalized.matchAll(/(januari|january|februari|february|maret|march|april|mei|may|juni|june|juli|july|agustus|august|september|oktober|october|november|desember|december)?\s*(19\d{2}|20\d{2})/g)];
+  const latestDate = dates.at(-1);
+  if (!latestDate) return Number.NEGATIVE_INFINITY;
+
+  const year = Number(latestDate[2]);
+  const month = latestDate[1] ? monthNumbers[latestDate[1]] ?? 0 : 0;
+  return year * 12 + month;
+}
+
+function sortTimelineEntries(entries: TimelineEntry[]): TimelineEntry[] {
+  return [...entries].sort((first, second) => {
+    const firstRank = getPeriodRank(first.period);
+    const secondRank = getPeriodRank(second.period);
+    if (firstRank === secondRank) return 0;
+    return firstRank > secondRank ? -1 : 1;
+  });
+}
 
 async function resolvePhotoUrl(value: string | undefined, envName: string): Promise<string> {
   const photo = value?.trim();
@@ -73,5 +102,8 @@ export async function getProfile(): Promise<Profile> {
 }
 
 export async function getTimeline(): Promise<Timeline> {
-  return timeline;
+  return {
+    education: sortTimelineEntries(timeline.education ?? []),
+    experience: sortTimelineEntries(timeline.experience ?? []),
+  };
 }
