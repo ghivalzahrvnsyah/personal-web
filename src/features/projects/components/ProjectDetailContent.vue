@@ -43,7 +43,7 @@ function markImageFailed(url: string) {
           <BaseSkillBadge :label="technology.label" :icon="technology.icon" :color="technology.color" />
         </li>
       </ul>
-      <div>
+      <div class="grid justify-items-start gap-4">
         <BaseButton
           v-if="project.demoUrl"
           variant="secondary"

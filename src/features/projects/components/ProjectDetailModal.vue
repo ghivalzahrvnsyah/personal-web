@@ -53,9 +53,6 @@ function close() {
           ×
         </BaseButton>
         <ProjectDetailContent :project="project" />
-        <div class="px-8 pb-8">
-          <BaseButton variant="secondary" @click="close">Tutup</BaseButton>
-        </div>
       </section>
     </div>
   </Teleport>
