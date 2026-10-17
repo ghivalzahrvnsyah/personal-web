@@ -27,7 +27,7 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
       <img
         v-if="project.thumbnail && !imageFailed"
         :src="project.thumbnail"
-        :alt="`Thumbnail ${project.title}`"
+        :alt="project.thumbnailAlt"
         class="h-full w-full object-cover"
         loading="lazy"
         @error="imageFailed = true"

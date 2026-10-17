@@ -9,21 +9,28 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-const imageFailed = ref(false);
-watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
+const failedImages = ref<string[]>([]);
+watch(() => props.project.id, () => { failedImages.value = []; });
+
+function markImageFailed(url: string) {
+  if (!failedImages.value.includes(url)) failedImages.value.push(url);
+}
 </script>
 
 <template>
   <article>
-    <div class="aspect-video border-b-2 border-space-indigo bg-bone">
+    <div class="grid gap-4 border-b-2 border-space-indigo bg-bone p-4">
       <img
-        v-if="project.thumbnail && !imageFailed"
-        :src="project.thumbnail"
-        :alt="`Gambar ${project.title}`"
-        class="h-full w-full object-cover"
-        @error="imageFailed = true"
+        v-for="image in project.images"
+        v-show="!failedImages.includes(image.url)"
+        :key="image.url"
+        :src="image.url"
+        :alt="image.altText"
+        class="aspect-video w-full border-retro object-cover"
+        loading="lazy"
+        @error="markImageFailed(image.url)"
       />
-      <div v-else class="flex h-full items-center justify-center font-body text-sm text-twilight-indigo">
+      <div v-if="!project.images.length || failedImages.length === project.images.length" class="flex aspect-video items-center justify-center font-body text-sm text-twilight-indigo">
         [Gambar proyek]
       </div>
     </div>
@@ -32,7 +39,7 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
       <h2 class="font-display text-h2-modal font-bold text-space-indigo">{{ project.title }}</h2>
       <p class="font-body text-base leading-relaxed text-twilight-indigo">{{ project.description }}</p>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
-        <li v-for="technology in project.techStack.slice(0, 5)" :key="technology">
+        <li v-for="technology in project.techStack" :key="technology">
           <BaseChip :label="technology" variant="tag" />
         </li>
       </ul>
@@ -44,7 +51,7 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
           target="_blank"
           rel="noopener"
         >
-          Lihat proyek
+          Demo
         </BaseButton>
         <BaseButton
           v-if="project.githubUrl"
@@ -53,9 +60,10 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
           target="_blank"
           rel="noopener"
         >
-          GitHub
+          Repository
         </BaseButton>
-        <p v-if="!project.demoUrl && !project.githubUrl" class="font-body text-sm text-twilight-indigo">[Tautan proyek belum tersedia]</p>
+        <p v-if="!project.demoUrl" class="font-body text-sm text-twilight-indigo">Demo: -</p>
+        <p v-if="!project.githubUrl" class="font-body text-sm text-twilight-indigo">Repository: -</p>
       </div>
     </div>
   </article>
