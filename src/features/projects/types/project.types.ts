@@ -5,7 +5,7 @@ export interface Project {
   thumbnail: string;
   thumbnailAlt: string;
   images: ProjectImage[];
-  techStack: string[];
+  techStack: ProjectTech[];
   githubUrl: string;
   demoUrl: string;
 }
@@ -13,4 +13,10 @@ export interface Project {
 export interface ProjectImage {
   url: string;
   altText: string;
+}
+
+export interface ProjectTech {
+  label: string;
+  icon: string;
+  color: string;
 }

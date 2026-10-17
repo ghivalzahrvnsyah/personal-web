@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import BaseCard from "@/components/BaseCard.vue";
-import BaseChip from "@/components/BaseChip.vue";
+import BaseSkillBadge from "@/components/BaseSkillBadge.vue";
 import type { Project } from "@/features/projects/types/project.types";
 
 interface Props {
@@ -45,8 +45,8 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
         {{ project.description }}
       </p>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
-        <li v-for="technology in project.techStack.slice(0, 5)" :key="technology">
-          <BaseChip :label="technology" variant="tag" />
+        <li v-for="technology in project.techStack.slice(0, 5)" :key="technology.label">
+          <BaseSkillBadge :label="technology.label" :icon="technology.icon" :color="technology.color" />
         </li>
       </ul>
     </div>

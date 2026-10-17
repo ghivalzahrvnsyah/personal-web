@@ -24,6 +24,15 @@ export async function getProjects(): Promise<Project[]> {
     console.warn("Could not fetch additional project mockups:", mockupsError.message);
   }
 
+  const { data: skills, error: skillsError } = await supabase
+    .from("skills")
+    .select("name, icon, color")
+    .eq("is_active", true);
+
+  if (skillsError) {
+    console.warn("Could not fetch skill badge styles:", skillsError.message);
+  }
+
   return (data ?? []).map((row) => ({
     id: String(row.project_id),
     title: row.title,
@@ -39,7 +48,14 @@ export async function getProjects(): Promise<Project[]> {
           altText: image.alt_text ?? `Mockup ${row.title}`,
         })),
     ],
-    techStack: parseTechTags(row.tech_tags),
+    techStack: parseTechTags(row.tech_tags).map((label) => {
+      const skill = skills?.find((item) => item.name === label);
+      return {
+        label,
+        icon: skill?.icon ?? "generic",
+        color: skill?.color ?? "#273469",
+      };
+    }),
     githubUrl: row.github_url ?? "",
     demoUrl: row.demo_url ?? "",
   }));

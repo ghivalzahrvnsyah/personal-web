@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import BaseButton from "@/components/BaseButton.vue";
-import BaseChip from "@/components/BaseChip.vue";
+import BaseSkillBadge from "@/components/BaseSkillBadge.vue";
 import type { Project } from "@/features/projects/types/project.types";
 
 interface Props {
@@ -39,8 +39,8 @@ function markImageFailed(url: string) {
       <h2 class="font-display text-h2-modal font-bold text-space-indigo">{{ project.title }}</h2>
       <p class="font-body text-base leading-relaxed text-twilight-indigo">{{ project.description }}</p>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
-        <li v-for="technology in project.techStack" :key="technology">
-          <BaseChip :label="technology" variant="tag" />
+        <li v-for="technology in project.techStack" :key="technology.label">
+          <BaseSkillBadge :label="technology.label" :icon="technology.icon" :color="technology.color" />
         </li>
       </ul>
       <div>
