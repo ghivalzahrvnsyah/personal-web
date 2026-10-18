@@ -56,7 +56,7 @@ function markImageFailed(url: string) {
         <BaseButton
           v-if="project.githubUrl"
           variant="secondary"
-          :href="project.githubUrl"
+          :href="project.githubUrl"  
           target="_blank"
           rel="noopener"
         >

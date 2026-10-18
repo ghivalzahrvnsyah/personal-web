@@ -19,5 +19,5 @@ defineProps<Props>();
         <BaseSkillBadge :label="skill.label" :icon="skill.icon" :color="skill.color" />
       </li>
     </ul>
-  </article>
+  </article> 
 </template>
