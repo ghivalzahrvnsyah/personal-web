@@ -12,7 +12,7 @@ function handleAboutPhotoError(event: Event) {
   console.error("Failed to load about profile photo:", (event.currentTarget as HTMLImageElement).src);
 }
 </script>
-
+ 
 <template>
   <SectionWrapper id="about" background="bone" label="About" wide>
     <div class="grid gap-12">
