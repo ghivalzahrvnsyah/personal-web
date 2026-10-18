@@ -16,7 +16,7 @@ const { activeSection } = useActiveSection(links.map((link) => link.id));
 
 function closeMenu() {
   menuOpen.value = false;
-}
+}  
 </script>
 
 <template>
