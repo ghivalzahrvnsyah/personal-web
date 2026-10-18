@@ -18,6 +18,7 @@ watch(() => [props.icon, props.name], () => {
 const brandLogoSlugs: Record<string, string> = {
   android: "android",
   "android studio": "androidstudio",
+  arduino: "arduino",
   angular: "angular",
   astro: "astro",
   "c sharp": "csharp",
@@ -67,7 +68,7 @@ const logoUrl = computed(() => {
 
   const key = props.name?.trim().toLowerCase();
   const slug = key ? brandLogoSlugs[key] : undefined;
-  return slug && !brandLogoLoadFailed.value ? `https://cdn.simpleicons.org/${slug}/ffffff` : "";
+  return slug && !brandLogoLoadFailed.value ? `https://cdn.simpleicons.org/${slug}/1e2749` : "";
 });
 
 function handleLogoError() {
@@ -102,7 +103,7 @@ const paths = computed(() => iconPaths[props.icon] ?? iconPaths.generic);
   <svg
     v-else
     aria-hidden="true"
-    class="h-5 w-5 shrink-0 text-white"
+    class="h-5 w-5 shrink-0 text-space-indigo"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
