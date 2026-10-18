@@ -20,7 +20,7 @@ function toggleProjects() {
   visibleCount.value = isExpanded.value ? 2 : projects.value.length;
 }
 </script>
-
+ 
 <template>
   <SectionWrapper id="projects" background="bone" label="Projects">
     <div class="relative grid gap-8">

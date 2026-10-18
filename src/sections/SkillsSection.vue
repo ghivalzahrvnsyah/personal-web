@@ -13,3 +13,4 @@ const { skillGroups } = useSkills();
     </div>
   </SectionWrapper>
 </template>
+ 
