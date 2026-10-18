@@ -21,7 +21,7 @@ const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, s
       </header>
 
       <ContactSuccessPanel v-if="isSuccess" />
-      <ContactForm
+      <ContactForm 
         v-else
         v-model:name="form.name"
         v-model:email="form.email"
