@@ -9,5 +9,5 @@ export function useSkills() {
     skillGroups.value = await getSkills();
   });
 
-  return { skillGroups };
+  return { skillGroups }; 
 }
