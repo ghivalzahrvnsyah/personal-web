@@ -49,11 +49,11 @@ export async function getProjects(): Promise<Project[]> {
         })),
     ],
     techStack: parseTechTags(row.tech_tags).map((label) => {
-      const skill = skills?.find((item) => item.name === label);
+      const skill = skills?.find((item) => item.name.trim().toLowerCase() === label.trim().toLowerCase());
       return {
         label,
         icon: skill?.icon ?? "generic",
-        color: skill?.color ?? "#273469",
+        color: skill?.color ?? "#DCE8F5",
       };
     }),
     githubUrl: row.github_url ?? "",
