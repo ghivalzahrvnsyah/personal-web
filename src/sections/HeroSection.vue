@@ -29,7 +29,7 @@ function handleHeroPhotoError(event: Event) {
           <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">{{ firstName }}</span>
           <span>{{ lastName }}<span class="text-air-force-blue">.</span></span>
         </h1>
-
+ 
         <p class="max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:text-[clamp(1.5rem,2vw,1.75rem)]">
           {{ tagline }}
         </p>
