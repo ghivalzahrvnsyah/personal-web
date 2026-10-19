@@ -8,6 +8,7 @@ export function useSkills() {
   onMounted(async () => {
     skillGroups.value = await getSkills();
   });
-
+ 
   return { skillGroups }; 
 }
+ 

@@ -21,3 +21,4 @@ import SkillsSection from "@/sections/SkillsSection.vue";
   <Footer />
   <BackToTopButton /> 
 </template> 
+   

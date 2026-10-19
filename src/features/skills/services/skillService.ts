@@ -27,7 +27,7 @@ export async function getSkills(): Promise<SkillGroup[]> {
       group.skills.push({
         label: skill.name,
         icon: skill.icon ?? "generic",
-        color: skill.color ?? "#273469",
+        color: skill.color ?? "#DCE8F5",
         category: skill.category,
       });
     }
