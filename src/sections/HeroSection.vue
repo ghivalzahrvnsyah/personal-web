@@ -45,7 +45,7 @@ function handleHeroPhotoError(event: Event) {
           <p class="font-body text-sm italic text-twilight-indigo lg:text-base">Karya terpilih hingga {{ year }}</p>
         </div>
       </div> 
-
+ 
       <div class="relative order-1 mx-auto aspect-square w-full max-w-hero-art-mobile shrink-0 lg:order-2 lg:mx-0 lg:max-w-[clamp(24rem,31vw,30rem)]">
         <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-[clamp(22rem,31vw,30rem)] lg:w-[clamp(22rem,31vw,30rem)]" aria-hidden="true" />
         <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-[clamp(16rem,20vw,20rem)] lg:w-[clamp(16rem,20vw,20rem)]" aria-hidden="true" />

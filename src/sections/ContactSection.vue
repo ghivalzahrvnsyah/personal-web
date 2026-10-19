@@ -6,7 +6,7 @@ import SectionWrapper from "@/layout/SectionWrapper.vue";
 
 const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, submitForm } = useContactForm();
 </script>
-
+ 
 <template>
   <SectionWrapper id="contact" background="parchment" narrow>
     <div class="grid gap-8">
