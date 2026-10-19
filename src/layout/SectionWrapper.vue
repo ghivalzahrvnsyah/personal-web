@@ -8,7 +8,7 @@ interface Props {
   narrow?: boolean;
   wide?: boolean;
 }
-
+ 
 withDefaults(defineProps<Props>(), {
   background: "parchment",
   narrow: false,

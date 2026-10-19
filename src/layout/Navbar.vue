@@ -10,7 +10,7 @@ const links = [
   { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
-
+ 
 const menuOpen = ref(false);
 const { activeSection } = useActiveSection(links.map((link) => link.id));
 
@@ -25,7 +25,7 @@ function closeMenu() {
       <a href="#home" class="font-display text-xl font-bold text-space-indigo" @click="closeMenu">
         [Inisial]
       </a>
-
+ 
       <nav aria-label="Navigasi utama" class="hidden items-center gap-8 md:flex">
         <a
           v-for="link in links"
