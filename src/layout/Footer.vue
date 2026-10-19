@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Container from "@/layout/Container.vue";
 </script>
-
+  
 <template>
   <footer class="border-t-2 border-space-indigo bg-bone pb-8 pt-12">
     <Container>

@@ -3,7 +3,7 @@ interface Props {
   narrow?: boolean;
   wide?: boolean;
 }
-
+ 
 withDefaults(defineProps<Props>(), {
   narrow: false,
   wide: false,
