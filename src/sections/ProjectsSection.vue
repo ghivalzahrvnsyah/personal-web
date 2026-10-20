@@ -45,7 +45,7 @@ function toggleProjects() {
           @select="openModal"
         />
       </div>
-
+  
       <div v-if="projects.length > 2" class="flex justify-center">
         <BaseButton
           variant="secondary"
