@@ -38,12 +38,9 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
     </div>
 
     <div class="grid gap-4 p-6">
-      <h3 class="truncate font-display text-card-title font-semibold text-space-indigo">
+      <h3 class="truncate font-display text-h3 font-semibold text-space-indigo">
         {{ project.title }}
       </h3>
-      <p class="line-clamp-2 font-body text-ui leading-relaxed text-twilight-indigo">
-        {{ project.description }}
-      </p>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
         <li v-for="technology in project.techStack.slice(0, 5)" :key="technology.label">
           <BaseSkillBadge :label="technology.label" :icon="technology.icon" :color="technology.color" />
