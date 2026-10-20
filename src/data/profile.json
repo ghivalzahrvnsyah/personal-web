@@ -1,14 +1,14 @@
 {
-  "firstName": "[Nama Depan]",
-  "lastName": "[Nama Belakang]",
-  "year": "[Tahun]",
-  "tagline": "[Jabatan Profesional] — [Kalimat nilai yang Anda tawarkan]",
+  "firstName": "GHiVALZA",
+  "lastName": "HARVIANSYAH",
+  "year": "2026",
+  "tagline": "Mobile Android Developer",
   "cvUrl": "/cv/[nama-cv].pdf",
-  "heroPhoto": "",
+  "heroPhoto": "D:/project/personal-web/src/assets/images/my foto.jpg",
   "aboutPhoto": "",
   "aboutParagraphs": [
     "[Paragraf singkat tentang latar belakang dan fokus profesional Anda.]",
     "[Paragraf singkat tentang cara kerja, minat, atau tujuan profesional Anda.]"
   ],
-  "copyrightName": "[Nama Lengkap]"
+  "copyrightName": "Ghivalza Harviansyah"
 }

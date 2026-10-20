@@ -1,19 +1,22 @@
 {
-  "education": {
-    "title": "[Program Studi]",
-    "organization": "[Universitas]",
-    "period": "[Tahun mulai]–[Tahun lulus]"
-  },
-  "experience": [
+  "education": [
     {
-      "title": "[Posisi]",
-      "organization": "[Organisasi]",
-      "period": "[Periode]"
+      "title": "S1 Informatika",
+      "organization": "Telkom University",
+      "period": "September 2024 - Agustus 2026"
     },
     {
-      "title": "[Posisi]",
-      "organization": "[Organisasi]",
-      "period": "[Periode]"
+      "title": "D3 Rekayasa Perangkat Lunak",
+      "organization": "Telkom University",
+      "period": "September 2021 - Agustus 2024"
     }
+  ],
+  "experience": [
+    {
+      "title": "Mobile Application Developer Internship",
+      "organization": "PT. Pindad (Persero)",
+      "period": "Februari 2024 - Agustus 2024"
+    }
+
   ]
 }
