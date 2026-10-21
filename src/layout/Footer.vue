@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import Container from "@/layout/Container.vue";
+import { useProfile } from "@/features/profile/composables/useProfile";
+
+const { profile } = useProfile();
 </script>
   
 <template>
@@ -32,7 +35,7 @@ import Container from "@/layout/Container.vue";
       </div>
 
       <div class="mt-8 border-t-2 border-space-indigo pt-6">
-        <p class="font-body text-sm text-twilight-indigo">© 2026 [Nama Lengkap]. All rights reserved.</p>
+        <p class="font-body text-sm text-twilight-indigo">©{{ profile?.copyrightName }} 2026. All rights reserved.</p>
       </div>
     </Container>
   </footer>
