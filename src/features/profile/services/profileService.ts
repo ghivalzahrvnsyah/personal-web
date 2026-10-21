@@ -69,6 +69,31 @@ async function resolvePhotoUrl(value: string | undefined, envName: string): Prom
   return storage.getPublicUrl(objectPath).data.publicUrl;
 }
 
+async function resolveCvUrl(value: string | undefined): Promise<string> {
+  const cvPath = value?.trim();
+  if (!cvPath) return "";
+  if (/^https?:/i.test(cvPath)) return cvPath;
+
+  const bucket = import.meta.env.VITE_SUPABASE_PROFILE_PHOTOS_BUCKET;
+  if (!bucket) {
+    console.error("Set VITE_SUPABASE_PROFILE_PHOTOS_BUCKET to the Storage bucket name for the CV.");
+    return "";
+  }
+
+  const normalizedPath = cvPath.replace(/^\/+/, "");
+  const objectPath = normalizedPath.startsWith(`${bucket}/`)
+    ? normalizedPath.slice(bucket.length + 1)
+    : normalizedPath;
+  const { data, error } = await supabase.storage
+    .from(bucket)
+    .createSignedUrl(objectPath, 60 * 60 * 24, { download: true });
+
+  if (data?.signedUrl) return data.signedUrl;
+
+  console.error("Could not create a signed download URL for the CV:", error?.message ?? "Unknown Storage error.");
+  return "";
+}
+
 export async function getProfilePhotos(): Promise<ProfilePhoto | null> {
   const { data, error } = await supabase
     .from("profile-photos")
@@ -87,7 +112,7 @@ export async function getProfilePhotos(): Promise<ProfilePhoto | null> {
 
 export async function getProfile(): Promise<Profile> {
   const photos = await getProfilePhotos();
-  const [heroPhoto, aboutPhoto] = await Promise.all([
+  const [heroPhoto, aboutPhoto, cvUrl] = await Promise.all([
     resolvePhotoUrl(
       photos?.avatar_url || import.meta.env.VITE_SUPABASE_HERO_PHOTO_PATH || profile.heroPhoto,
       "VITE_SUPABASE_HERO_PHOTO_PATH",
@@ -96,9 +121,10 @@ export async function getProfile(): Promise<Profile> {
       photos?.profile_photo_url || import.meta.env.VITE_SUPABASE_ABOUT_PHOTO_PATH || profile.aboutPhoto,
       "VITE_SUPABASE_ABOUT_PHOTO_PATH",
     ),
+    resolveCvUrl(profile.cvUrl),
   ]);
 
-  return { ...profile, heroPhoto, aboutPhoto };
+  return { ...profile, heroPhoto, aboutPhoto, cvUrl };
 }
 
 export async function getTimeline(): Promise<Timeline> {
