@@ -8,7 +8,7 @@ const firstName = computed(() => profile.value?.firstName ?? "[Nama Depan]");
 const lastName = computed(() => profile.value?.lastName ?? "[Nama Belakang]");
 const year = computed(() => profile.value?.year ?? "[Tahun]");
 const tagline = computed(() => profile.value?.tagline ?? "[Jabatan Profesional] — [Kalimat nilai yang Anda tawarkan]");
-const cvUrl = computed(() => profile.value?.cvUrl ?? "/cv/[nama-cv].pdf");
+const cvUrl = computed(() => profile.value?.cvUrl ?? "");
 const heroPhotoFailed = ref(false);
 
 function handleHeroPhotoError(event: Event) {
@@ -36,13 +36,20 @@ function handleHeroPhotoError(event: Event) {
 
         <div class="flex w-full flex-wrap items-center justify-center gap-6 lg:w-auto lg:justify-start">
           <a
+            v-if="cvUrl"
             :href="cvUrl"
             download
             class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo lg:w-auto lg:text-[1.375rem]"
           >
             Download CV
           </a>
-          <p class="font-body text-sm italic text-twilight-indigo lg:text-base">Karya terpilih hingga {{ year }}</p>
+          <span
+            v-else
+            role="status"
+            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo/50 px-8 font-body text-cta font-bold text-parchment lg:w-auto lg:text-[1.375rem]"
+          >
+            {{ profile ? "CV belum tersedia" : "Memuat CV..." }}
+          </span>
         </div>
       </div>
 
