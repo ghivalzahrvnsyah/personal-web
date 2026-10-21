@@ -16,7 +16,7 @@ const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, s
           <span aria-hidden="true">“</span>Mari bekerja sama<span class="text-air-force-blue">.</span>
         </h2>
         <p class="font-body text-body-lg leading-relaxed text-twilight-indigo">
-          [Ceritakan singkat jenis kolaborasi atau pekerjaan yang ingin Anda diskusikan.]
+          Jika Anda tertarik untuk bekerja sama, memiliki pertanyaan, atau ingin menghubungi saya, silakan isi formulir di bawah ini. Saya akan berusaha merespons secepat mungkin.
         </p>
       </header>
 
