@@ -2,6 +2,11 @@
 import { ref } from "vue";
 import BaseButton from "@/components/BaseButton.vue";
 import { useActiveSection } from "@/composables/useActiveSection";
+import { supabase } from "@/lib/supabaseClient";
+
+const logoUrl = supabase.storage
+  .from("portofolio-assets")
+  .getPublicUrl("logo/logo-gh.svg").data.publicUrl;
 
 const links = [
   { id: "home", label: "Home" },
@@ -21,9 +26,13 @@ function closeMenu() {
 
 <template>
   <header class="sticky top-0 z-50 h-nav border-b-2 border-space-indigo bg-parchment" @keydown.esc="closeMenu">
-    <div class="mx-auto flex h-full max-w-content items-center justify-between px-6">
-      <a href="#home" class="font-display text-xl font-bold text-space-indigo" @click="closeMenu">
-        [Inisial]
+    <div class="mx-auto flex h-full max-w-content-wide items-center justify-between px-6">
+      <a href="#home" class="flex items-center" aria-label="Ghivalza Harviansyah, ke beranda" @click="closeMenu">
+        <img
+          :src="logoUrl"
+          alt="Ghivalza Harviansyah"
+          class="h-10 w-auto"
+        />
       </a>
  
       <nav aria-label="Navigasi utama" class="hidden items-center gap-8 md:flex">
