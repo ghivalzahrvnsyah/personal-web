@@ -19,6 +19,7 @@ const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, s
           Jika Anda tertarik untuk bekerja sama, memiliki pertanyaan, atau ingin menghubungi saya, silakan isi formulir di bawah ini. Saya akan berusaha merespons secepat mungkin.
         </p>
       </header>
+        
 
       <ContactSuccessPanel v-if="isSuccess" />
       <ContactForm 
