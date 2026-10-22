@@ -27,7 +27,7 @@ function handleHeroPhotoError(event: Event) {
 
         <h1 class="grid justify-items-center font-display text-[clamp(2.5rem,5vw,5rem)] font-bold leading-none tracking-tight text-space-indigo lg:text-[clamp(4rem,6vw,6rem)]">
           <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">{{ firstName }}</span>
-          <span>{{ lastName }}<span class="text-air-force-blue">.</span></span>
+          <span>{{ lastName }}<span aria-hidden="true" class="text-air-force-blue">.</span></span>
         </h1>
  
         <p class="max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:text-[clamp(1.5rem,2.2vw,2rem)]">
