@@ -49,8 +49,10 @@ export function useContactForm() {
       form.message = "";
       isSuccess.value = true;
       successTimer = window.setTimeout(() => { isSuccess.value = false; }, 3000);
-    } catch {
-      formError.value = "Pesan belum dapat dikirim. Silakan coba lagi.";
+    } catch (error) {
+      formError.value = error instanceof Error && error.message
+        ? error.message
+        : "Pesan belum dapat dikirim. Silakan coba lagi.";
       errorTimer = window.setTimeout(() => { formError.value = ""; }, 5000);
     } finally {
       isSubmitting.value = false;
