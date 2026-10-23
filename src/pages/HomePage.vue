@@ -8,7 +8,7 @@ import HeroSection from "@/sections/HeroSection.vue";
 import ProjectsSection from "@/sections/ProjectsSection.vue";
 import SkillsSection from "@/sections/SkillsSection.vue";
 </script>
-
+   
 <template>
   <Navbar />
   <main id="main-content">
