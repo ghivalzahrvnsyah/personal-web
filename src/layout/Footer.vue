@@ -1,8 +1,28 @@
 <script setup lang="ts">
 import Container from "@/layout/Container.vue";
 import { useProfile } from "@/features/profile/composables/useProfile";
+import { onMounted, ref } from "vue";
+import QRCode from "qrcode";
 
 const { profile } = useProfile();
+const profileLink = "https://ghivalharviansyah.carrd.co/";
+const qrCodeDataUrl = ref("");
+
+onMounted(async () => {
+  try {
+    qrCodeDataUrl.value = await QRCode.toDataURL(profileLink, {
+      width: 112,
+      margin: 1,
+      errorCorrectionLevel: "H",
+      color: {
+        dark: "#1E2749",
+        light: "#F7F2EB",
+      },
+    });
+  } catch (error) {
+    console.error("Failed to generate footer QR code:", error);
+  }
+});
 
 function openInNewTab(url: string) {
   window.open(url, "_blank", "noopener,noreferrer");
@@ -14,9 +34,21 @@ function openInNewTab(url: string) {
     <Container>
       <div class="flex flex-wrap items-start justify-between gap-8">
         <div class="flex flex-wrap items-center gap-6">
-          <div class="flex h-28 w-28 items-center justify-center rounded-chip border-retro bg-parchment font-body text-sm text-twilight-indigo">
-            [QR Code]
-          </div>
+          <a
+            :href="profileLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Buka profil Ghivalza Harviansyah di Carrd"
+            class="flex h-28 w-28 items-center justify-center rounded-chip border-retro bg-parchment focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
+          >
+            <img
+              v-if="qrCodeDataUrl"
+              :src="qrCodeDataUrl"
+              alt="QR code menuju ghivalharviansyah.carrd.co"
+              class="h-full w-full rounded-chip"
+            />
+            <span v-else class="sr-only">QR code sedang dibuat</span>
+          </a>
           <div class="grid gap-1 font-body text-base font-medium text-space-indigo">
             <h2 class="mb-2 font-display text-xl font-semibold">Let's Work Together:</h2>
           <a href="#contact" class="hover:text-twilight-indigo">ghivalza.harviansyah10.com</a>
