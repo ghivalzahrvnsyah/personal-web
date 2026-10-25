@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Lexend:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Lexend:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @plugin "daisyui" {
@@ -31,7 +31,7 @@
   --color-air-force-blue: #468FAF;
   --color-brick: #8C2F2A;
 
-  --font-display: "Fredoka", "Trebuchet MS", sans-serif;
+  --font-display: "Sora", "Trebuchet MS", sans-serif;
   --font-body: "Lexend", system-ui, sans-serif;
 
   --container-content: 70rem;

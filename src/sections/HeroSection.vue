@@ -25,7 +25,7 @@ function handleHeroPhotoError(event: Event) {
           Portofolio · {{ year }}
         </p>
 
-        <h1 class="grid justify-items-center font-display text-[clamp(2.5rem,5vw,5rem)] font-bold leading-none tracking-tight text-space-indigo lg:text-[clamp(4rem,6vw,6rem)]">
+        <h1 class="grid justify-items-center font-display text-[clamp(2.5rem,5vw,5rem)] font-bold uppercase leading-none tracking-tight text-space-indigo lg:text-[clamp(4rem,6vw,6rem)]">
           <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">{{ firstName }}</span>
           <span>{{ lastName }}<span aria-hidden="true" class="text-air-force-blue">.</span></span>
         </h1>
