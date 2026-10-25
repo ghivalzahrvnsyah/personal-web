@@ -47,3 +47,6 @@ Thumbs.db
 # Vite / Vue Cache
 .vite/
 *.tsbuildinfo
+
+# Local Supabase CLI metadata
+supabase/.temp/
