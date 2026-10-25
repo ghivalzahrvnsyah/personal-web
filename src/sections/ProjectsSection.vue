@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, ref } from "vue";
 import BaseButton from "@/components/BaseButton.vue";
+import BaseSkeleton from "@/components/BaseSkeleton.vue";
 import { useProjectModal } from "@/features/projects/composables/useProjectModal";
 import { useProjects } from "@/features/projects/composables/useProjects";
 import ProjectCard from "@/features/projects/components/ProjectCard.vue";
@@ -10,7 +11,7 @@ const ProjectDetailModal = defineAsyncComponent(
   () => import("@/features/projects/components/ProjectDetailModal.vue"),
 );
 
-const { projects } = useProjects();
+const { projects, isLoading } = useProjects();
 const { selectedProject, isModalOpen, openModal, closeModal } = useProjectModal();
 const visibleCount = ref(2);
 const visibleProjects = computed(() => projects.value.slice(0, visibleCount.value));
@@ -38,7 +39,20 @@ function toggleProjects() {
       </svg>
 
       <div id="project-list" class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <div v-if="isLoading" role="status" aria-label="Memuat proyek" class="grid grid-cols-1 gap-8 lg:col-span-2 lg:grid-cols-2">
+          <div v-for="card in 2" :key="card" class="overflow-hidden rounded-card border-retro bg-parchment shadow-retro">
+            <BaseSkeleton class="aspect-video rounded-none" />
+            <div class="grid gap-4 p-6">
+              <BaseSkeleton class="h-8 w-3/4" />
+              <div class="flex gap-2">
+                <BaseSkeleton v-for="badge in 3" :key="badge" class="h-8 w-20 rounded-pill" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <p v-else-if="projects.length === 0" class="font-body text-twilight-indigo">Belum ada proyek untuk ditampilkan.</p>
         <ProjectCard
+          v-else
           v-for="project in visibleProjects"
           :key="project.id"
           :project="project"

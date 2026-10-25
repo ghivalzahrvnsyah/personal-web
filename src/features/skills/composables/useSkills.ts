@@ -4,11 +4,20 @@ import type { SkillGroup } from "@/features/skills/types/skill.types";
 
 export function useSkills() {
   const skillGroups = ref<SkillGroup[]>([]);
+  const isLoading = ref(true);
 
-  onMounted(async () => {
-    skillGroups.value = await getSkills();
-  });
+  async function refreshSkills() {
+    isLoading.value = true;
+    try {
+      skillGroups.value = await getSkills();
+    } catch (error) {
+      console.error("Error loading skills:", error);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  onMounted(() => void refreshSkills());
  
-  return { skillGroups }; 
+  return { skillGroups, isLoading, refreshSkills };
 }
- 

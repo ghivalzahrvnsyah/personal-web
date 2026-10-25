@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useProfile } from "@/features/profile/composables/useProfile";
+import BaseSkeleton from "@/components/BaseSkeleton.vue";
 import SectionWrapper from "@/layout/SectionWrapper.vue";
 import { computed, ref } from "vue";
 
-const { profile } = useProfile();
-const firstName = computed(() => profile.value?.firstName ?? "[Nama Depan]");
-const lastName = computed(() => profile.value?.lastName ?? "[Nama Belakang]");
-const year = computed(() => profile.value?.year ?? "[Tahun]");
-const tagline = computed(() => profile.value?.tagline ?? "[Jabatan Profesional] — [Kalimat nilai yang Anda tawarkan]");
+const { profile, isLoading } = useProfile();
+const firstName = computed(() => profile.value.firstName ?? "");
+const lastName = computed(() => profile.value.lastName ?? "");
+const year = computed(() => profile.value.year ?? "");
+const tagline = computed(() => profile.value.tagline ?? "");
 const cvUrl = computed(() => profile.value?.cvUrl ?? "");
 const heroPhotoFailed = ref(false);
 
@@ -36,19 +37,25 @@ function handleHeroPhotoError(event: Event) {
 
         <div class="flex w-full flex-wrap items-center justify-center gap-6 lg:w-auto lg:justify-start">
           <a
-            v-if="cvUrl"
+            v-if="!isLoading && cvUrl"
             :href="cvUrl"
             download
             class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo lg:w-auto lg:text-[1.375rem]"
           >
             Download CV
           </a>
+          <BaseSkeleton
+            v-if="isLoading"
+            role="status"
+            aria-label="Memuat CV"
+            class="h-14 w-full rounded-pill lg:w-48"
+          />
           <span
-            v-else
+            v-else-if="!cvUrl"
             role="status"
             class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo/50 px-8 font-body text-cta font-bold text-parchment lg:w-auto lg:text-[1.375rem]"
           >
-            {{ profile ? "CV belum tersedia" : "Memuat CV..." }}
+            CV belum tersedia
           </span>
         </div>
       </div>
@@ -57,8 +64,9 @@ function handleHeroPhotoError(event: Event) {
         <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-[clamp(24rem,34vw,32rem)] lg:w-[clamp(24rem,34vw,32rem)]" aria-hidden="true" />
         <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-[clamp(18rem,22vw,22rem)] lg:w-[clamp(18rem,22vw,22rem)]" aria-hidden="true" />
         <div class="absolute left-1/2 top-1/2 flex h-[clamp(14rem,60vw,18rem)] w-[clamp(14rem,60vw,18rem)] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo shadow-retro-lg ring-4 ring-parchment lg:h-[clamp(20rem,28vw,27rem)] lg:w-[clamp(20rem,28vw,27rem)]">
-          <img v-if="profile?.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" @error="handleHeroPhotoError" />
-          <span v-else>[Foto Profil]</span>
+          <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto profil" class="h-full w-full rounded-full" />
+          <img v-else-if="profile.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" @error="handleHeroPhotoError" />
+          <span v-else>Foto profil belum tersedia</span>
         </div>
         <svg aria-hidden="true" class="pointer-events-none absolute -left-8 top-16 hidden h-12 w-12 text-air-force-blue md:block" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20 3 24 16 37 20 24 24 20 37 16 24 3 20 16 16 20 3Z" />

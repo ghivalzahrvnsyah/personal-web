@@ -6,6 +6,10 @@ import { supabase } from "@/lib/supabaseClient";
 const profile = profileData as Profile;
 const timeline = timelineData as Timeline;
 
+export function getProfileData(): Profile {
+  return profile;
+}
+
 const monthNumbers: Record<string, number> = {
   januari: 1, january: 1, februari: 2, february: 2, maret: 3, march: 3,
   april: 4, mei: 5, may: 5, juni: 6, june: 6, juli: 7, july: 7,
@@ -127,7 +131,7 @@ export async function getProfile(): Promise<Profile> {
   return { ...profile, heroPhoto, aboutPhoto, cvUrl };
 }
 
-export async function getTimeline(): Promise<Timeline> {
+export function getTimeline(): Timeline {
   return {
     education: sortTimelineEntries(timeline.education ?? []),
     experience: sortTimelineEntries(timeline.experience ?? []),
