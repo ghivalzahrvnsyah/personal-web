@@ -56,8 +56,8 @@ function handleHeroPhotoError(event: Event) {
       <div class="relative order-1 mx-auto aspect-square w-full max-w-[clamp(16rem,68vw,20rem)] shrink-0 lg:order-2 lg:mx-0 lg:max-w-[clamp(26rem,36vw,34rem)]">
         <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-[clamp(24rem,34vw,32rem)] lg:w-[clamp(24rem,34vw,32rem)]" aria-hidden="true" />
         <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-[clamp(18rem,22vw,22rem)] lg:w-[clamp(18rem,22vw,22rem)]" aria-hidden="true" />
-        <div class="absolute left-1/2 top-1/2 flex h-[clamp(14rem,60vw,18rem)] w-[clamp(14rem,60vw,18rem)] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo lg:h-[clamp(20rem,28vw,27rem)] lg:w-[clamp(20rem,28vw,27rem)]">
-          <img v-if="profile?.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover" @error="handleHeroPhotoError" />
+        <div class="absolute left-1/2 top-1/2 flex h-[clamp(14rem,60vw,18rem)] w-[clamp(14rem,60vw,18rem)] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo shadow-retro-lg ring-4 ring-parchment lg:h-[clamp(20rem,28vw,27rem)] lg:w-[clamp(20rem,28vw,27rem)]">
+          <img v-if="profile?.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" @error="handleHeroPhotoError" />
           <span v-else>[Foto Profil]</span>
         </div>
         <svg aria-hidden="true" class="pointer-events-none absolute -left-8 top-16 hidden h-12 w-12 text-air-force-blue md:block" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
