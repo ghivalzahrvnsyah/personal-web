@@ -100,16 +100,14 @@ export async function getProfilePhotos(): Promise<ProfilePhoto | null> {
 export async function getProfile(): Promise<Profile> {
   const heroPhotoPath = import.meta.env.VITE_SUPABASE_HERO_PHOTO_PATH?.trim() ?? "";
   const aboutPhotoPath = import.meta.env.VITE_SUPABASE_ABOUT_PHOTO_PATH?.trim() ?? "";
-  const photos = heroPhotoPath && aboutPhotoPath
-    ? null
-    : await getProfilePhotos();
+  const photos = await getProfilePhotos();
   const [heroPhoto, aboutPhoto, cvUrl] = await Promise.all([
     resolvePhotoUrl(
-      heroPhotoPath || photos?.avatar_url || profile.heroPhoto,
+      photos?.avatar_url || heroPhotoPath || profile.heroPhoto,
       "VITE_SUPABASE_HERO_PHOTO_PATH",
     ),
     resolvePhotoUrl(
-      aboutPhotoPath || photos?.profile_photo_url || profile.aboutPhoto,
+      photos?.profile_photo_url || aboutPhotoPath || profile.aboutPhoto,
       "VITE_SUPABASE_ABOUT_PHOTO_PATH",
     ),
     resolveCvUrl(profile.cvUrl),
