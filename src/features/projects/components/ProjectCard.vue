@@ -42,8 +42,8 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
         {{ project.title }}
       </h3>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
-        <li v-for="technology in project.techStack.slice(0, 5)" :key="technology.label">
-          <BaseSkillBadge :label="technology.label" :icon="technology.icon" :color="technology.color" />
+        <li v-for="technology in project.techStack" :key="technology.label">
+          <BaseSkillBadge :label="technology.label" :icon="technology.icon" :color="technology.color" compact />
         </li>
       </ul>
     </div>

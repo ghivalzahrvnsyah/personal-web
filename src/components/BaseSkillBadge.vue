@@ -6,6 +6,7 @@ interface Props {
   label: string;
   icon: string;
   color: string;
+  compact?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -35,10 +36,11 @@ const readableBackground = computed(() => {
 
 <template>
   <span
-    class="inline-flex min-h-12 max-w-full items-center gap-2 rounded-control border-retro px-4 py-2 font-display text-sm font-semibold text-space-indigo shadow-retro sm:text-base"
+    class="inline-flex max-w-full items-center border-retro font-display font-semibold text-space-indigo shadow-retro"
+    :class="compact ? 'min-h-8 gap-1 rounded-control px-2 py-1 text-xs' : 'min-h-12 gap-2 rounded-control px-4 py-2 text-sm sm:text-base'"
     :style="{ backgroundColor: readableBackground }"
   >
-    <BrandIcon :icon="icon" :name="label" />
+    <BrandIcon :icon="icon" :name="label" :compact="compact" />
     <span>{{ label }}</span>
   </span>
 </template>

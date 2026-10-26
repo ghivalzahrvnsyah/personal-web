@@ -4,6 +4,7 @@ import { computed, ref, watch } from "vue";
 interface Props {
   icon: string;
   name?: string;
+  compact?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -104,14 +105,16 @@ const paths = computed(() => {
     :src="logoUrl"
     alt=""
     aria-hidden="true"
-    class="h-5 w-5 shrink-0 object-contain"
+    class="shrink-0 object-contain"
+    :class="compact ? 'h-4 w-4' : 'h-5 w-5'"
     loading="lazy"
     @error="handleLogoError"
   />
   <svg
     v-else
     aria-hidden="true"
-    class="h-5 w-5 shrink-0 text-space-indigo"
+    class="shrink-0 text-space-indigo"
+    :class="compact ? 'h-4 w-4' : 'h-5 w-5'"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
