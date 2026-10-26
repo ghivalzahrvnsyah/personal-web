@@ -38,7 +38,7 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
     </div>
 
     <div class="grid gap-4 p-6">
-      <h3 class="truncate font-display text-h3 font-semibold text-space-indigo">
+      <h3 class="break-words font-display text-h3 font-semibold leading-tight text-space-indigo">
         {{ project.title }}
       </h3>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
