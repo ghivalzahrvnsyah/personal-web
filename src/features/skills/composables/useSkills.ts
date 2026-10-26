@@ -9,7 +9,7 @@ export function useSkills() {
   async function refreshSkills() {
     isLoading.value = true;
     try {
-      skillGroups.value = await getSkills();
+      skillGroups.value = await getSkills(true);
     } catch (error) {
       console.error("Error loading skills:", error);
     } finally {

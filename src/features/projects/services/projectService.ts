@@ -1,36 +1,26 @@
 import { supabase } from "@/lib/supabaseClient";
 import type { Project } from "@/features/projects/types/project.types";
+import { getActiveSkills } from "@/features/skills/services/skillService";
 
 export async function getProjects(): Promise<Project[]> {
-  const { data, error } = await supabase
-    .from("projects")
-    .select("project_id, title, descriptions, image_url, tech_tags, github_url, demo_url, alt_text");
+  const [{ data, error }, skills, { data: mockups, error: mockupsError }] = await Promise.all([
+    supabase
+      .from("projects")
+      .select("project_id, title, descriptions, image_url, tech_tags, github_url, demo_url, alt_text"),
+    getActiveSkills(),
+    supabase
+      .from("project_mockups")
+      .select("project_id, image_url, alt_text, sort_order")
+      .order("sort_order", { ascending: true }),
+  ]);
 
   if (error) {
     console.error("Error fetching projects:", error.message);
     return [];
   }
 
-  const projectIds = (data ?? []).map((row) => String(row.project_id));
-  const { data: mockups, error: mockupsError } = projectIds.length
-    ? await supabase
-        .from("project_mockups")
-        .select("project_id, image_url, alt_text, sort_order")
-        .in("project_id", projectIds)
-        .order("sort_order", { ascending: true })
-    : { data: [], error: null };
-
   if (mockupsError) {
     console.warn("Could not fetch additional project mockups:", mockupsError.message);
-  }
-
-  const { data: skills, error: skillsError } = await supabase
-    .from("skills")
-    .select("name, icon, color")
-    .eq("is_active", true);
-
-  if (skillsError) {
-    console.warn("Could not fetch skill badge styles:", skillsError.message);
   }
 
   return (data ?? []).map((row) => ({
@@ -49,7 +39,7 @@ export async function getProjects(): Promise<Project[]> {
         })),
     ],
     techStack: parseTechTags(row.tech_tags).map((label) => {
-      const skill = skills?.find((item) => item.name.trim().toLowerCase() === label.trim().toLowerCase());
+      const skill = skills.find((item) => item.name.trim().toLowerCase() === label.trim().toLowerCase());
       return {
         label,
         icon: skill?.icon ?? "generic",

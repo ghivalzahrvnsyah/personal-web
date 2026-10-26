@@ -41,10 +41,7 @@ function sortTimelineEntries(entries: TimelineEntry[]): TimelineEntry[] {
 
 async function resolvePhotoUrl(value: string | undefined, envName: string): Promise<string> {
   const photo = value?.trim();
-  if (!photo) {
-    console.warn(`Set ${envName} to the image path inside the Supabase Storage bucket.`);
-    return "";
-  }
+  if (!photo) return "";
 
   if (/^(https?:|data:|blob:)/i.test(photo)) return photo;
 
@@ -62,13 +59,6 @@ async function resolvePhotoUrl(value: string | undefined, envName: string): Prom
     ? normalizedPhoto.slice(bucket.length + 1)
     : normalizedPhoto;
   const storage = supabase.storage.from(bucket);
-
-  const { data, error } = await storage.createSignedUrl(objectPath, 60 * 60 * 24);
-  if (data?.signedUrl) return data.signedUrl;
-
-  if (error) {
-    console.warn("Could not create a signed profile photo URL; trying the public bucket URL:", error.message);
-  }
 
   return storage.getPublicUrl(objectPath).data.publicUrl;
 }
@@ -88,14 +78,7 @@ async function resolveCvUrl(value: string | undefined): Promise<string> {
   const objectPath = normalizedPath.startsWith(`${bucket}/`)
     ? normalizedPath.slice(bucket.length + 1)
     : normalizedPath;
-  const { data, error } = await supabase.storage
-    .from(bucket)
-    .createSignedUrl(objectPath, 60 * 60 * 24, { download: true });
-
-  if (data?.signedUrl) return data.signedUrl;
-
-  console.error("Could not create a signed download URL for the CV:", error?.message ?? "Unknown Storage error.");
-  return "";
+  return supabase.storage.from(bucket).getPublicUrl(objectPath, { download: true }).data.publicUrl;
 }
 
 export async function getProfilePhotos(): Promise<ProfilePhoto | null> {
@@ -115,14 +98,18 @@ export async function getProfilePhotos(): Promise<ProfilePhoto | null> {
 }
 
 export async function getProfile(): Promise<Profile> {
-  const photos = await getProfilePhotos();
+  const heroPhotoPath = import.meta.env.VITE_SUPABASE_HERO_PHOTO_PATH?.trim() ?? "";
+  const aboutPhotoPath = import.meta.env.VITE_SUPABASE_ABOUT_PHOTO_PATH?.trim() ?? "";
+  const photos = heroPhotoPath && aboutPhotoPath
+    ? null
+    : await getProfilePhotos();
   const [heroPhoto, aboutPhoto, cvUrl] = await Promise.all([
     resolvePhotoUrl(
-      photos?.avatar_url || import.meta.env.VITE_SUPABASE_HERO_PHOTO_PATH || profile.heroPhoto,
+      heroPhotoPath || photos?.avatar_url || profile.heroPhoto,
       "VITE_SUPABASE_HERO_PHOTO_PATH",
     ),
     resolvePhotoUrl(
-      photos?.profile_photo_url || import.meta.env.VITE_SUPABASE_ABOUT_PHOTO_PATH || profile.aboutPhoto,
+      aboutPhotoPath || photos?.profile_photo_url || profile.aboutPhoto,
       "VITE_SUPABASE_ABOUT_PHOTO_PATH",
     ),
     resolveCvUrl(profile.cvUrl),
