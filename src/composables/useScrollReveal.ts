@@ -18,7 +18,10 @@ export function useScrollReveal(container: Ref<HTMLElement | null>) {
     observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          (entry.target as HTMLElement).dataset.visible = String(entry.isIntersecting);
+          if (!entry.isIntersecting) continue;
+
+          (entry.target as HTMLElement).dataset.visible = "true";
+          observer?.unobserve(entry.target);
         }
       },
       { rootMargin: "-10% 0px 16% 0px", threshold: 0 },
