@@ -25,7 +25,7 @@ function toggleProjects() {
 <template>
   <SectionWrapper id="projects" background="bone" label="Projects">
     <div class="relative grid gap-8">
-      <h2 class="font-display text-h2 font-bold text-space-indigo">
+      <h2 class="font-display text-h2 font-bold text-space-indigo" data-scroll-reveal>
         <span aria-hidden="true">“</span>My projects
       </h2>
 
@@ -39,7 +39,7 @@ function toggleProjects() {
       </svg>
 
       <div id="project-list" class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <div v-if="isLoading" role="status" aria-label="Memuat proyek" class="grid grid-cols-1 gap-8 lg:col-span-2 lg:grid-cols-2">
+        <div v-if="isLoading" role="status" aria-label="Memuat proyek" class="grid grid-cols-1 gap-8 lg:col-span-2 lg:grid-cols-2" data-scroll-reveal>
           <div v-for="card in 2" :key="card" class="overflow-hidden rounded-card border-retro bg-parchment shadow-retro">
             <BaseSkeleton class="aspect-video rounded-none" />
             <div class="grid gap-4 p-6">
@@ -50,17 +50,18 @@ function toggleProjects() {
             </div>
           </div>
         </div>
-        <p v-else-if="projects.length === 0" class="font-body text-twilight-indigo">Belum ada proyek untuk ditampilkan.</p>
+        <p v-else-if="projects.length === 0" class="font-body text-twilight-indigo" data-scroll-reveal>Belum ada proyek untuk ditampilkan.</p>
         <ProjectCard
           v-else
           v-for="project in visibleProjects"
           :key="project.id"
           :project="project"
+          data-scroll-reveal
           @select="openModal"
         />
       </div>
   
-      <div v-if="projects.length > 2" class="flex justify-center">
+      <div v-if="projects.length > 2" class="flex justify-center" data-scroll-reveal>
         <BaseButton
           variant="secondary"
           :aria-expanded="isExpanded"

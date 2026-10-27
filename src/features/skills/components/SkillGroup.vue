@@ -11,12 +11,12 @@ defineProps<Props>();
 
 <template>
   <article>
-    <h3 class="text-center font-display text-h3 font-semibold text-space-indigo">
+    <h3 class="text-center font-display text-h3 font-semibold text-space-indigo" data-scroll-reveal>
       {{ group.name }}
     </h3>
     <ul class="mt-6 flex flex-wrap justify-center gap-4">
       <li v-for="skill in group.skills" :key="skill.label">
-        <BaseSkillBadge :label="skill.label" :icon="skill.icon" :color="skill.color" />
+        <BaseSkillBadge :label="skill.label" :icon="skill.icon" :color="skill.color" data-scroll-reveal />
       </li>
     </ul>
   </article> 

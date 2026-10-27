@@ -11,17 +11,17 @@ const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, s
   <SectionWrapper id="contact" background="parchment" narrow>
     <div class="grid gap-8">
       <header class="grid gap-4">
-        <p class="font-body text-base font-bold uppercase tracking-eyebrow text-space-indigo">Contact</p>
-        <h2 class="font-display text-h2 font-bold text-space-indigo">
+          <p class="font-body text-base font-bold uppercase tracking-eyebrow text-space-indigo" data-scroll-reveal>Contact</p>
+        <h2 class="font-display text-h2 font-bold text-space-indigo" data-scroll-reveal>
           <span aria-hidden="true">“</span>Mari bekerja sama<span class="text-air-force-blue">.</span>
         </h2>
-        <p class="font-body text-body-lg leading-relaxed text-twilight-indigo">
+        <p class="font-body text-body-lg leading-relaxed text-twilight-indigo" data-scroll-reveal>
           Jika Anda tertarik untuk bekerja sama, memiliki pertanyaan, atau ingin menghubungi saya, silakan isi formulir di bawah ini. Saya akan berusaha merespons secepat mungkin.
         </p>
       </header>
         
 
-      <ContactSuccessPanel v-if="isSuccess" />
+      <ContactSuccessPanel v-if="isSuccess" data-scroll-reveal />
       <ContactForm 
         v-else
         v-model:name="form.name"
@@ -31,6 +31,7 @@ const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, s
         :form-error="formError"
         :is-submitting="isSubmitting"
         :remaining-characters="remainingCharacters"
+        data-scroll-reveal
         @submit="submitForm"
       />
     </div>

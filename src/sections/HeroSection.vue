@@ -22,20 +22,20 @@ function handleHeroPhotoError(event: Event) {
   <SectionWrapper id="home" background="parchment" wide>
     <div class="relative flex min-h-hero-section flex-col items-center justify-center gap-8 overflow-hidden lg:flex-row lg:items-start lg:justify-between lg:gap-12 lg:pt-8">
       <div class="relative z-10 order-2 grid w-full min-w-0 justify-items-center gap-6 text-center lg:order-1 lg:w-auto lg:flex-1 lg:justify-items-start lg:text-left lg:basis-hero-art">
-        <p class="font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo lg:text-base">
+        <p class="hero-entrance hero-entrance-1 font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo lg:text-base">
           Portofolio · {{ year }}
         </p>
 
-        <h1 class="grid justify-items-center font-display text-[clamp(2.5rem,5vw,5rem)] font-bold uppercase leading-none tracking-tight text-space-indigo lg:justify-items-start lg:text-[clamp(4rem,6vw,6rem)]">
+        <h1 class="hero-entrance hero-entrance-2 grid justify-items-center font-display text-[clamp(2.5rem,5vw,5rem)] font-bold uppercase leading-none tracking-tight text-space-indigo lg:justify-items-start lg:text-[clamp(4rem,6vw,6rem)]">
           <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">{{ firstName }}</span>
           <span>{{ lastName }}<span aria-hidden="true" class="text-air-force-blue">.</span></span>
         </h1>
  
-        <p class="max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:text-[clamp(1.5rem,2.2vw,2rem)]">
+        <p class="hero-entrance hero-entrance-3 max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:text-[clamp(1.5rem,2.2vw,2rem)]">
           {{ tagline }}
         </p>
 
-        <div class="flex w-full flex-wrap items-center justify-center gap-6 lg:w-auto lg:justify-start">
+        <div class="hero-entrance hero-entrance-4 flex w-full flex-wrap items-center justify-center gap-6 lg:w-auto lg:justify-start">
           <a
             v-if="!isLoading && cvUrl"
             :href="cvUrl"
@@ -60,7 +60,7 @@ function handleHeroPhotoError(event: Event) {
         </div>
       </div>
 
-      <div class="relative order-1 mx-auto aspect-square w-full max-w-[clamp(16rem,68vw,20rem)] shrink-0 lg:order-2 lg:mx-0 lg:max-w-[clamp(26rem,36vw,34rem)]">
+      <div class="hero-entrance hero-entrance-5 relative order-1 mx-auto aspect-square w-full max-w-[clamp(16rem,68vw,20rem)] shrink-0 lg:order-2 lg:mx-0 lg:max-w-[clamp(26rem,36vw,34rem)]">
         <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-[clamp(24rem,34vw,32rem)] lg:w-[clamp(24rem,34vw,32rem)]" aria-hidden="true" />
         <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-[clamp(18rem,22vw,22rem)] lg:w-[clamp(18rem,22vw,22rem)]" aria-hidden="true" />
         <div class="absolute left-1/2 top-1/2 flex h-[clamp(14rem,60vw,18rem)] w-[clamp(14rem,60vw,18rem)] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo shadow-retro-lg ring-4 ring-parchment lg:h-[clamp(20rem,28vw,27rem)] lg:w-[clamp(20rem,28vw,27rem)]">

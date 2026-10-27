@@ -18,7 +18,7 @@ function handleAboutPhotoError(event: Event) {
   <SectionWrapper id="about" background="bone" label="About" wide>
     <div class="grid gap-12">
       <div class="flex flex-col items-center gap-12 lg:flex-row">
-        <div class="relative mx-auto aspect-square w-full max-w-[16rem] shrink-0 lg:mx-0 lg:max-w-about-art">
+        <div class="relative mx-auto aspect-square w-full max-w-[16rem] shrink-0 lg:mx-0 lg:max-w-about-art" data-scroll-reveal>
           <div class="absolute bottom-0 left-0 h-[12rem] w-[14rem] rounded-block border-retro bg-air-force-blue lg:h-about-accent-height lg:w-about-accent-width" aria-hidden="true" />
           <div class="absolute right-0 top-0 flex h-[14rem] w-[12rem] items-center justify-center overflow-hidden rounded-card border-retro bg-parchment font-body text-sm text-twilight-indigo lg:h-about-photo-height lg:w-about-photo-width">
             <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto formal" class="h-full w-full rounded-card" />
@@ -31,13 +31,13 @@ function handleAboutPhotoError(event: Event) {
         </div>
 
         <div class="grid w-full min-w-0 flex-1 gap-6 lg:basis-96">
-          <h2 class="font-display text-[clamp(2.5rem,7vw,4rem)] text-center font-bold text-space-indigo lg:text-left">
+          <h2 class="font-display text-[clamp(2.5rem,7vw,4rem)] text-center font-bold text-space-indigo lg:text-left" data-scroll-reveal>
             <span aria-hidden="true">“</span>HELLO<span class="text-air-force-blue">.</span>
           </h2>
-          <p class="font-body text-body-lg leading-relaxed text-twilight-indigo">
+          <p class="font-body text-body-lg leading-relaxed text-twilight-indigo" data-scroll-reveal>
             {{ profile.aboutParagraphs[0] ?? "" }}
           </p>
-          <p class="font-body text-body-lg leading-relaxed text-twilight-indigo">
+          <p class="font-body text-body-lg leading-relaxed text-twilight-indigo" data-scroll-reveal>
             {{ profile.aboutParagraphs[1] ?? "" }}
           </p>
         </div>
@@ -45,7 +45,7 @@ function handleAboutPhotoError(event: Event) {
 
       <div class="grid gap-12 lg:grid-cols-2">
         <section class="grid content-start gap-6" aria-labelledby="education-heading">
-          <h3 id="education-heading" class="font-display text-h3 font-semibold text-space-indigo">Pendidikan</h3>
+          <h3 id="education-heading" class="font-display text-h3 font-semibold text-space-indigo" data-scroll-reveal>Pendidikan</h3>
           <ul v-if="timeline.education.length" class="grid list-none gap-0 p-0">
             <BaseTimelineItem
               v-for="(entry, index) in timeline.education"
@@ -53,6 +53,7 @@ function handleAboutPhotoError(event: Event) {
               :title="entry.title"
               :organization="entry.organization"
               :period="entry.period"
+              data-scroll-reveal
             />
           </ul>
           <ul v-else class="grid list-none gap-0 p-0">
@@ -61,7 +62,7 @@ function handleAboutPhotoError(event: Event) {
         </section>
 
         <section class="relative grid content-start gap-6" aria-labelledby="experience-heading">
-          <h3 id="experience-heading" class="font-display text-h3 font-semibold text-space-indigo">Pengalaman</h3>
+          <h3 id="experience-heading" class="font-display text-h3 font-semibold text-space-indigo" data-scroll-reveal>Pengalaman</h3>
           <svg aria-hidden="true" class="pointer-events-none absolute right-0 top-0 hidden h-10 w-10 text-air-force-blue md:block" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M8 31c3-12 11-20 24-23-3 13-11 21-23 24Z" />
             <path d="M9 32c5-7 10-12 18-18" />
@@ -73,11 +74,12 @@ function handleAboutPhotoError(event: Event) {
               :title="entry.title"
               :organization="entry.organization"
               :period="entry.period"
+              data-scroll-reveal
             />
           </ul>
           <ul v-else class="grid list-none gap-0 p-0">
-            <BaseTimelineItem title="[Posisi]" organization="[Organisasi]" period="[Periode]" />
-            <BaseTimelineItem title="[Posisi]" organization="[Organisasi]" period="[Periode]" />
+            <BaseTimelineItem title="[Posisi]" organization="[Organisasi]" period="[Periode]" data-scroll-reveal />
+            <BaseTimelineItem title="[Posisi]" organization="[Organisasi]" period="[Periode]" data-scroll-reveal />
           </ul>
         </section>
       </div>

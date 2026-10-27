@@ -10,7 +10,7 @@ const { skillGroups, isLoading } = useSkills();
 <template>
   <SectionWrapper id="skills" background="parchment" label="Skills">
     <div class="grid gap-12">
-      <div v-if="isLoading" role="status" aria-label="Memuat keahlian" class="grid gap-12 md:grid-cols-2">
+      <div v-if="isLoading" role="status" aria-label="Memuat keahlian" class="grid gap-12 md:grid-cols-2" data-scroll-reveal>
         <div v-for="group in 2" :key="group" class="grid justify-items-center gap-6">
           <BaseSkeleton class="h-10 w-48" />
           <div class="flex flex-wrap justify-center gap-4">
