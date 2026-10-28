@@ -23,7 +23,6 @@ function typeRole(roleIndex: number, characterIndex = 0, deleting = false) {
     const nextCharacterIndex = characterIndex + 1;
 
     if (nextCharacterIndex === role.length) {
-      if (roleIndex === roles.length - 1) return;
       typingTimer = window.setTimeout(() => typeRole(roleIndex, nextCharacterIndex, true), 1300);
       return;
     }
@@ -38,7 +37,8 @@ function typeRole(roleIndex: number, characterIndex = 0, deleting = false) {
     return;
   }
 
-  typingTimer = window.setTimeout(() => typeRole(roleIndex + 1), 250);
+  const nextRoleIndex = (roleIndex + 1) % roles.length;
+  typingTimer = window.setTimeout(() => typeRole(nextRoleIndex), 250);
 }
 
 onMounted(() => {
