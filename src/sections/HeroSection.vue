@@ -73,6 +73,10 @@ function handleHeroPhotoError(event: Event) {
           <span class="rounded-card border-retro bg-air-force-blue px-6 py-2">{{ firstName }}</span>
           <span>{{ lastName }}<span aria-hidden="true" class="text-air-force-blue">.</span></span>
         </h1>
+
+        <p class="hero-entrance hero-entrance-3 font-body text-base text-twilight-indigo lg:text-lg">
+          Tinggal di Bandung, Indonesia
+        </p>
  
         <p class="min-h-[3em] max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:min-h-[1.5em] lg:text-[clamp(1.5rem,2.2vw,2rem)]" aria-label="Mobile Android Developer, Software Engineer, UI/UX Enthusiast">
           <span class="typewriter-caret" aria-hidden="true">{{ typedRole }}</span>
@@ -104,23 +108,13 @@ function handleHeroPhotoError(event: Event) {
       </div>
 
       <div class="hero-entrance hero-entrance-5 relative order-1 mx-auto aspect-square w-full max-w-[clamp(16rem,68vw,20rem)] shrink-0 lg:order-2 lg:mx-0 lg:max-w-[clamp(26rem,36vw,34rem)]">
-        <div class="absolute left-1/2 top-1/2 h-hero-ring-mobile w-hero-ring-mobile -translate-x-1/2 -translate-y-1/2 rounded-full border-retro lg:h-[clamp(24rem,34vw,32rem)] lg:w-[clamp(24rem,34vw,32rem)]" aria-hidden="true" />
-        <div class="absolute bottom-4 right-2 h-hero-accent-mobile w-hero-accent-mobile rounded-card border-retro bg-air-force-blue lg:bottom-8 lg:right-0 lg:h-[clamp(18rem,22vw,22rem)] lg:w-[clamp(18rem,22vw,22rem)]" aria-hidden="true" />
-        <div class="absolute left-1/2 top-1/2 flex h-[clamp(14rem,60vw,18rem)] w-[clamp(14rem,60vw,18rem)] -translate-x-1/2 -translate-y-1/2 items-center justify-center overflow-hidden rounded-full border-retro bg-bone font-body text-sm text-twilight-indigo shadow-retro-lg ring-4 ring-parchment lg:h-[clamp(20rem,28vw,27rem)] lg:w-[clamp(20rem,28vw,27rem)]">
-          <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto profil" class="h-full w-full rounded-full" />
-          <img v-else-if="profile.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" @error="handleHeroPhotoError" />
+        <div class="absolute inset-[4%] rotate-[-5deg] border-retro bg-air-force-blue" aria-hidden="true" />
+        <div class="absolute inset-[2%] rotate-[4deg] border-retro bg-brick" aria-hidden="true" />
+        <div class="absolute inset-0 flex items-center justify-center overflow-hidden border-retro bg-bone font-body text-sm text-twilight-indigo shadow-retro-lg">
+          <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto profil" class="h-full w-full" />
+          <img v-else-if="profile.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" decoding="async" @error="handleHeroPhotoError" />
           <span v-else>Foto profil belum tersedia</span>
         </div>
-        <svg aria-hidden="true" class="pointer-events-none absolute -left-8 top-16 hidden h-12 w-12 text-air-force-blue md:block" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 3 24 16 37 20 24 24 20 37 16 24 3 20 16 16 20 3Z" />
-          <path d="M34 4v7m-3.5-3.5h7" />
-        </svg>
-        <svg aria-hidden="true" class="pointer-events-none absolute -left-8 bottom-10 hidden h-16 w-16 text-space-indigo md:block" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="8" y="10" width="48" height="34" rx="4" /><path d="M20 54h24M26 44v10m12-10v10M20 22l7 6-7 6m14 0h10" />
-        </svg>
-        <svg aria-hidden="true" class="pointer-events-none absolute -right-8 bottom-10 hidden h-16 w-16 text-space-indigo md:block" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 38a18 18 0 1 1 20 0c-4 3-4 7-4 9H26c0-2 0-6-4-9Z" /><path d="M26 53h12m-10 5h8M32 4v5m22 9-5 3M10 18l5 3m-2 20 5-2m28 0 5 2" />
-        </svg>
       </div>
 
     </div>

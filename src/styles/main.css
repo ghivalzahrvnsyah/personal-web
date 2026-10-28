@@ -157,6 +157,11 @@ main[data-scroll-ready="true"] [data-scroll-reveal][data-visible="true"] {
   }
 }
 
+#home {
+  background-image: radial-gradient(rgba(39, 52, 105, 0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
