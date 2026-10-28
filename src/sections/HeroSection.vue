@@ -111,8 +111,8 @@ function handleHeroPhotoError(event: Event) {
         <div class="absolute inset-[4%] rotate-[-5deg] border-retro bg-air-force-blue" aria-hidden="true" />
         <div class="absolute inset-[2%] rotate-[4deg] border-retro bg-brick" aria-hidden="true" />
         <div class="absolute inset-0 flex items-center justify-center overflow-hidden border-retro bg-bone font-body text-sm text-twilight-indigo shadow-retro-lg">
-          <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto profil" class="h-full w-full" />
-          <img v-else-if="profile.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" decoding="async" @error="handleHeroPhotoError" />
+          <img v-if="profile.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" width="640" height="640" fetchpriority="high" decoding="async" @error="handleHeroPhotoError" />
+          <BaseSkeleton v-else-if="isLoading" role="status" aria-label="Memuat foto profil" class="h-full w-full" />
           <span v-else>Foto profil belum tersedia</span>
         </div>
       </div>

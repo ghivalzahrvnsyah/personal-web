@@ -4,37 +4,32 @@ const DEFAULT_SECTION_IDS = ["home", "about", "skills", "projects", "contact"];
 
 export function useActiveSection(sectionIds: string[] = DEFAULT_SECTION_IDS) {
   const activeSection = ref(sectionIds[0] ?? "");
-  let animationFrame = 0;
-
-  function updateActiveSection() {
-    animationFrame = 0;
-    const marker = Math.min(window.innerHeight * 0.32, window.innerHeight - 1);
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => section !== null)
-      .filter((section) => section.getBoundingClientRect().top <= marker);
-    const currentSection = sections[sections.length - 1];
-
-    if (currentSection) activeSection.value = currentSection.id;
-  }
-
-  function scheduleUpdate() {
-    if (animationFrame) return;
-    animationFrame = window.requestAnimationFrame(updateActiveSection);
-  }
+  let observer: IntersectionObserver | undefined;
+  let sections: HTMLElement[] = [];
+  const activeCandidates = new Set<string>();
 
   onMounted(() => {
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-    window.addEventListener("hashchange", scheduleUpdate);
-    scheduleUpdate();
+    sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+    if (!("IntersectionObserver" in window)) return;
+
+    observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) activeCandidates.add(entry.target.id);
+        else activeCandidates.delete(entry.target.id);
+      }
+
+      const currentSection = sectionIds.find((id) => activeCandidates.has(id));
+      if (currentSection) activeSection.value = currentSection;
+    }, { threshold: 0 });
+
+    sections.forEach((section) => observer?.observe(section));
   });
 
   onUnmounted(() => {
-    window.removeEventListener("scroll", scheduleUpdate);
-    window.removeEventListener("resize", scheduleUpdate);
-    window.removeEventListener("hashchange", scheduleUpdate);
-    if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    observer?.disconnect();
+    activeCandidates.clear();
   });
 
   return { activeSection };
