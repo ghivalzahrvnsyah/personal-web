@@ -19,15 +19,11 @@ function handleAboutPhotoError(event: Event) {
     <div class="grid gap-12">
       <div class="flex flex-col items-center gap-12 lg:flex-row">
         <div class="relative mx-auto aspect-square w-full max-w-[16rem] shrink-0 lg:mx-0 lg:max-w-about-art" data-scroll-reveal>
-          <div class="absolute bottom-0 left-0 h-[12rem] w-[14rem] rounded-block border-retro bg-air-force-blue lg:h-about-accent-height lg:w-about-accent-width" aria-hidden="true" />
           <div class="absolute right-0 top-0 flex h-[14rem] w-[12rem] items-center justify-center overflow-hidden rounded-card border-retro bg-parchment font-body text-sm text-twilight-indigo lg:h-about-photo-height lg:w-about-photo-width">
             <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto formal" class="h-full w-full rounded-card" />
             <img v-else-if="profile.aboutPhoto && !aboutPhotoFailed" :src="profile.aboutPhoto" alt="Foto formal" class="h-full w-full object-cover" loading="lazy" @error="handleAboutPhotoError" />
             <span v-else>Foto formal belum tersedia</span>
           </div>
-          <svg aria-hidden="true" class="pointer-events-none absolute -right-8 top-8 hidden h-8 w-8 text-air-force-blue md:block" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 2 19 12l11 4-11 4-3 10-3-10-11-4 11-4 3-10Z" />
-          </svg>
         </div>
 
         <div class="grid w-full min-w-0 flex-1 gap-6 lg:basis-96">
@@ -63,10 +59,6 @@ function handleAboutPhotoError(event: Event) {
 
         <section class="relative grid content-start gap-6" aria-labelledby="experience-heading">
           <h3 id="experience-heading" class="font-display text-h3 font-semibold text-space-indigo" data-scroll-reveal>Pengalaman</h3>
-          <svg aria-hidden="true" class="pointer-events-none absolute right-0 top-0 hidden h-10 w-10 text-air-force-blue md:block" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M8 31c3-12 11-20 24-23-3 13-11 21-23 24Z" />
-            <path d="M9 32c5-7 10-12 18-18" />
-          </svg>
           <ul v-if="timeline.experience.length" class="grid list-none gap-0 p-0">
             <BaseTimelineItem
               v-for="(entry, index) in timeline.experience"

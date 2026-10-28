@@ -91,6 +91,15 @@
   background-color: rgba(30, 39, 73, 0.72);
 }
 
+@utility bg-retro-pattern {
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--color-air-force-blue) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--color-air-force-blue) 9%, transparent) 1px, transparent 1px),
+    repeating-linear-gradient(135deg, transparent 0 31px, color-mix(in srgb, var(--color-air-force-blue) 11%, transparent) 31px 32px, transparent 32px 64px);
+  background-attachment: fixed;
+  background-size: 48px 48px, 48px 48px, 96px 96px;
+}
+
 @utility text-vertical {
   writing-mode: vertical-rl;
 }
@@ -154,11 +163,6 @@ main[data-scroll-ready="true"] [data-scroll-reveal][data-visible="true"] {
     transition: none;
     will-change: auto;
   }
-}
-
-#home {
-  background-image: radial-gradient(rgba(39, 52, 105, 0.09) 1px, transparent 1px);
-  background-size: 28px 28px;
 }
 
 @layer base {

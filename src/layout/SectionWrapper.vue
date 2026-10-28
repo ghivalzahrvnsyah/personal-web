@@ -20,7 +20,7 @@ withDefaults(defineProps<Props>(), {
   <section
     :id="id"
     data-scroll-reveal-group
-    class="border-t-2 border-space-indigo py-12 md:py-16"
+    class="border-t-2 border-space-indigo bg-retro-pattern py-12 md:py-16"
     :class="background === 'bone' ? 'bg-bone' : 'bg-parchment'"
   >
     <Container :narrow="narrow" :wide="wide || Boolean(label)">
