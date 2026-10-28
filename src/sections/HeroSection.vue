@@ -2,15 +2,58 @@
 import { useProfile } from "@/features/profile/composables/useProfile";
 import BaseSkeleton from "@/components/BaseSkeleton.vue";
 import SectionWrapper from "@/layout/SectionWrapper.vue";
-import { computed, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 
 const { profile, isLoading } = useProfile();
 const firstName = computed(() => profile.value.firstName ?? "");
 const lastName = computed(() => profile.value.lastName ?? "");
 const year = computed(() => profile.value.year ?? "");
-const tagline = computed(() => profile.value.tagline ?? "");
 const cvUrl = computed(() => profile.value?.cvUrl ?? "");
 const heroPhotoFailed = ref(false);
+const typedRole = ref("");
+const roles = ["Mobile Android Developer", "Software Engineer", "UI/UX Enthusiast"];
+let typingTimer: number | undefined;
+
+function typeRole(roleIndex: number, characterIndex = 0, deleting = false) {
+  const role = roles[roleIndex];
+  if (!role) return;
+
+  if (!deleting) {
+    typedRole.value = role.slice(0, characterIndex + 1);
+    const nextCharacterIndex = characterIndex + 1;
+
+    if (nextCharacterIndex === role.length) {
+      if (roleIndex === roles.length - 1) return;
+      typingTimer = window.setTimeout(() => typeRole(roleIndex, nextCharacterIndex, true), 1300);
+      return;
+    }
+
+    typingTimer = window.setTimeout(() => typeRole(roleIndex, nextCharacterIndex), 82);
+    return;
+  }
+
+  typedRole.value = role.slice(0, characterIndex - 1);
+  if (characterIndex > 1) {
+    typingTimer = window.setTimeout(() => typeRole(roleIndex, characterIndex - 1, true), 38);
+    return;
+  }
+
+  typingTimer = window.setTimeout(() => typeRole(roleIndex + 1), 250);
+}
+
+onMounted(() => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    typedRole.value = roles[0];
+    return;
+  }
+
+  // Let the name, CV button, and profile photo finish entering first.
+  typingTimer = window.setTimeout(() => typeRole(0), 1350);
+});
+
+onUnmounted(() => {
+  if (typingTimer !== undefined) window.clearTimeout(typingTimer);
+});
 
 function handleHeroPhotoError(event: Event) {
   heroPhotoFailed.value = true;
@@ -31,8 +74,8 @@ function handleHeroPhotoError(event: Event) {
           <span>{{ lastName }}<span aria-hidden="true" class="text-air-force-blue">.</span></span>
         </h1>
  
-        <p class="hero-entrance hero-entrance-3 max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:text-[clamp(1.5rem,2.2vw,2rem)]">
-          {{ tagline }}
+        <p class="min-h-[3em] max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:min-h-[1.5em] lg:text-[clamp(1.5rem,2.2vw,2rem)]" aria-label="Mobile Android Developer, Software Engineer, UI/UX Enthusiast">
+          <span class="typewriter-caret" aria-hidden="true">{{ typedRole }}</span>
         </p>
 
         <div class="hero-entrance hero-entrance-4 flex w-full flex-wrap items-center justify-center gap-6 lg:w-auto lg:justify-start">
