@@ -12,4 +12,3 @@
     </svg>
   </a>
 </template>
-   
