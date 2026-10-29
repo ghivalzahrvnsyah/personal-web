@@ -75,7 +75,7 @@ function handleHeroPhotoError(event: Event) {
         </h1>
 
         <p class="hero-entrance hero-entrance-3 font-body text-base text-twilight-indigo lg:text-lg">
-          Tinggal di Bandung, Indonesia
+          Bandung, Indonesia
         </p>
  
         <p class="min-h-[3em] max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:min-h-[1.5em] lg:text-[clamp(1.5rem,2.2vw,2rem)]" aria-label="Mobile Android Developer, Software Engineer, UI/UX Enthusiast">
