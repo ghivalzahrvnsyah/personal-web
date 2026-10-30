@@ -71,3 +71,4 @@ function toggleProjects() {
     />
   </SectionWrapper>
 </template>
+  
