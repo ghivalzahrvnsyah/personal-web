@@ -8,10 +8,10 @@ const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, s
 </script>
  
 <template>
-  <SectionWrapper id="contact" background="parchment" narrow>
-    <div class="grid gap-8">
+  <SectionWrapper id="contact" background="parchment" wide>
+    <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-12">
       <header class="grid gap-4">
-          <p class="font-body text-base font-bold uppercase tracking-eyebrow text-space-indigo" data-scroll-reveal>Contact</p>
+        <p class="font-body text-base font-bold uppercase tracking-eyebrow text-space-indigo" data-scroll-reveal>Contact</p>
         <h2 class="font-display text-h2 font-bold text-space-indigo" data-scroll-reveal>
           <span aria-hidden="true">“</span>Mari bekerja sama<span class="text-air-force-blue">.</span>
         </h2>
@@ -21,19 +21,21 @@ const { form, errors, formError, isSubmitting, isSuccess, remainingCharacters, s
       </header>
         
 
-      <ContactSuccessPanel v-if="isSuccess" data-scroll-reveal />
-      <ContactForm 
-        v-else
-        v-model:name="form.name"
-        v-model:email="form.email"
-        v-model:message="form.message"
-        :errors="errors"
-        :form-error="formError"
-        :is-submitting="isSubmitting"
-        :remaining-characters="remainingCharacters"
-        data-scroll-reveal
-        @submit="submitForm"
-      />
+      <div class="border-t-2 border-space-indigo pt-8 lg:border-l-2 lg:border-t-0 lg:pt-0 lg:pl-12">
+        <ContactSuccessPanel v-if="isSuccess" data-scroll-reveal />
+        <ContactForm
+          v-else
+          v-model:name="form.name"
+          v-model:email="form.email"
+          v-model:message="form.message"
+          :errors="errors"
+          :form-error="formError"
+          :is-submitting="isSubmitting"
+          :remaining-characters="remainingCharacters"
+          data-scroll-reveal
+          @submit="submitForm"
+        />
+      </div>
     </div>
   </SectionWrapper>
 </template>
