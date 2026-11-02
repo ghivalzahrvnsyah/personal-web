@@ -11,7 +11,7 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="mx-auto w-full px-6" :class="narrow ? 'max-w-narrow' : wide ? 'max-w-content-wide' : 'max-w-content'">
+  <div class="mx-auto w-full px-[clamp(1.5rem,4vw,4rem)]" :class="narrow ? 'max-w-narrow' : wide ? 'max-w-content-wide' : 'max-w-content'">
     <slot />
   </div>
 </template>

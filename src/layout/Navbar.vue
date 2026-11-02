@@ -26,7 +26,7 @@ function closeMenu() {
 
 <template>
   <header class="sticky top-0 z-50 h-nav border-b-2 border-space-indigo bg-parchment" @keydown.esc="closeMenu">
-    <div class="mx-auto flex h-full max-w-content-wide items-center justify-between px-6">
+    <div class="mx-auto flex h-full max-w-content-wide items-center justify-between px-[clamp(1.5rem,4vw,4rem)]">
       <a href="#home" class="flex items-center" aria-label="Ghivalza Harviansyah, ke beranda" @click="closeMenu">
         <img
           :src="logoUrl"
