@@ -4,32 +4,51 @@ const DEFAULT_SECTION_IDS = ["home", "about", "skills", "projects", "contact"];
 
 export function useActiveSection(sectionIds: string[] = DEFAULT_SECTION_IDS) {
   const activeSection = ref(sectionIds[0] ?? "");
-  let observer: IntersectionObserver | undefined;
   let sections: HTMLElement[] = [];
-  const activeCandidates = new Set<string>();
+  let animationFrame = 0;
+
+  function updateActiveSection() {
+    if (animationFrame) return;
+
+    animationFrame = window.requestAnimationFrame(() => {
+      animationFrame = 0;
+      if (!sections.length) return;
+
+      const scrollPosition = window.scrollY;
+      const isSmallScreen = window.matchMedia("(max-width: 639px)").matches;
+      const focusRatio = isSmallScreen ? 0.8 : 0.4;
+      const focusLine = scrollPosition + window.innerHeight * focusRatio;
+      const isAtPageBottom = scrollPosition + window.innerHeight >= document.documentElement.scrollHeight - 2;
+
+      if (isAtPageBottom) {
+        activeSection.value = sections[sections.length - 1]?.id ?? activeSection.value;
+        return;
+      }
+
+      let currentSection = sections[0];
+      for (const section of sections) {
+        const sectionTop = section.getBoundingClientRect().top + scrollPosition;
+        if (sectionTop > focusLine) break;
+        currentSection = section;
+      }
+
+      if (currentSection) activeSection.value = currentSection.id;
+    });
+  }
 
   onMounted(() => {
     sections = sectionIds
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => section !== null);
-    if (!("IntersectionObserver" in window)) return;
-
-    observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) activeCandidates.add(entry.target.id);
-        else activeCandidates.delete(entry.target.id);
-      }
-
-      const currentSection = sectionIds.find((id) => activeCandidates.has(id));
-      if (currentSection) activeSection.value = currentSection;
-    }, { threshold: 0 });
-
-    sections.forEach((section) => observer?.observe(section));
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection, { passive: true });
   });
 
   onUnmounted(() => {
-    observer?.disconnect();
-    activeCandidates.clear();
+    window.removeEventListener("scroll", updateActiveSection);
+    window.removeEventListener("resize", updateActiveSection);
+    if (animationFrame) window.cancelAnimationFrame(animationFrame);
   });
 
   return { activeSection };
