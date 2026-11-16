@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import BaseButton from "@/components/BaseButton.vue";
 import { useActiveSection } from "@/composables/useActiveSection";
 import { supabase } from "@/lib/supabaseClient";
@@ -17,16 +17,46 @@ const links = [
 ];
 
 const menuOpen = ref(false);
-const isScrolled = ref(false);
+const scrollStage = ref<"top" | "medium" | "compact">("top");
 const isExpanded = ref(false);
+const isScrolled = computed(() => scrollStage.value !== "top");
 const { activeSection } = useActiveSection(links.map((link) => link.id));
+let compactTransitionTimer: number | undefined;
+
+function clearCompactTransitionTimer() {
+  if (compactTransitionTimer === undefined) return;
+  window.clearTimeout(compactTransitionTimer);
+  compactTransitionTimer = undefined;
+}
+
+function setScrollStage(stage: "top" | "medium" | "compact") {
+  scrollStage.value = stage;
+  isExpanded.value = stage === "medium";
+  menuOpen.value = false;
+}
 
 function updateScrollState() {
-  isScrolled.value = window.scrollY > 80;
+  const scrollY = window.scrollY;
 
-  if (!isScrolled.value) {
-    isExpanded.value = false;
-    menuOpen.value = false;
+  if (scrollY <= 80) {
+    clearCompactTransitionTimer();
+    setScrollStage("top");
+    return;
+  }
+
+  if (scrollY <= 200) {
+    clearCompactTransitionTimer();
+    setScrollStage("medium");
+    return;
+  }
+
+  if (scrollStage.value === "top") setScrollStage("medium");
+
+  if (scrollStage.value === "medium" && compactTransitionTimer === undefined) {
+    compactTransitionTimer = window.setTimeout(() => {
+      compactTransitionTimer = undefined;
+      if (window.scrollY > 200) setScrollStage("compact");
+    }, 520);
   }
 }
 
@@ -38,8 +68,12 @@ function closeMenu() {
 function handleLogoClick(event: MouseEvent) {
   if (isScrolled.value && window.matchMedia("(max-width: 767px)").matches) {
     event.preventDefault();
-    isExpanded.value = !isExpanded.value;
-    menuOpen.value = isExpanded.value;
+    if (scrollStage.value === "compact") {
+      isExpanded.value = !isExpanded.value;
+      menuOpen.value = isExpanded.value;
+    } else {
+      menuOpen.value = !menuOpen.value;
+    }
     return;
   }
 
@@ -47,7 +81,7 @@ function handleLogoClick(event: MouseEvent) {
 }
 
 function expandNavbar() {
-  if (!isScrolled.value) return;
+  if (scrollStage.value !== "compact") return;
 
   isExpanded.value = true;
   if (window.matchMedia("(max-width: 767px)").matches) menuOpen.value = true;
@@ -56,6 +90,12 @@ function expandNavbar() {
 function collapseNavbar(event?: MouseEvent) {
   const nav = event?.currentTarget;
   if (nav instanceof HTMLElement && nav.contains(document.activeElement)) return;
+
+  if (scrollStage.value === "medium") {
+    menuOpen.value = false;
+    return;
+  }
+  if (scrollStage.value !== "compact") return;
 
   isExpanded.value = false;
   menuOpen.value = false;
@@ -74,6 +114,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  clearCompactTransitionTimer();
   window.removeEventListener("scroll", updateScrollState);
 });
 </script>
@@ -96,7 +137,7 @@ onUnmounted(() => {
       <a
         href="#home"
         class="flex shrink-0 items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        :class="isScrolled && !isExpanded
+        :class="scrollStage === 'compact' && !isExpanded
           ? 'absolute left-1/2 -translate-x-1/2'
           : isScrolled ? 'ml-3' : ''"
         :aria-label="isScrolled && menuOpen ? 'Tutup navigasi' : 'Ghivalza Harviansyah, ke beranda'"
@@ -108,7 +149,7 @@ onUnmounted(() => {
 
       <nav
         aria-label="Navigasi utama"
-        class="hidden items-center gap-6 transition-all duration-300 md:flex"
+        class="ml-auto hidden items-center gap-6 transition-all duration-300 md:flex"
         :class="isScrolled
           ? isExpanded ? 'mr-4 opacity-100' : 'pointer-events-none max-w-0 overflow-hidden opacity-0'
           : 'mr-0 gap-8 opacity-100'"
