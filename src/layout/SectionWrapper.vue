@@ -20,8 +20,11 @@ withDefaults(defineProps<Props>(), {
   <section
     :id="id"
     data-scroll-reveal-group
-    class="border-t-2 border-space-indigo bg-retro-pattern py-12 md:py-16"
-    :class="background === 'bone' ? 'bg-bone' : 'bg-parchment'"
+    class="border-space-indigo bg-retro-pattern py-12 md:py-16"
+    :class="[
+      background === 'bone' ? 'bg-bone' : 'bg-parchment',
+      id === 'home' ? 'border-t-0' : 'border-t-2',
+    ]"
   >
     <Container :narrow="narrow" :wide="wide || Boolean(label)">
       <header v-if="label" class="mb-8 flex items-center gap-6" data-scroll-reveal>

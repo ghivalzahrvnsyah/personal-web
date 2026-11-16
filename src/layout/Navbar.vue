@@ -17,47 +17,25 @@ const links = [
 ];
 
 const menuOpen = ref(false);
-const scrollStage = ref<"top" | "medium" | "compact">("top");
+const scrollStage = ref<"top" | "compact">("top");
 const isExpanded = ref(false);
+const hoverEnabled = ref(true);
 const isScrolled = computed(() => scrollStage.value !== "top");
 const { activeSection } = useActiveSection(links.map((link) => link.id));
-let compactTransitionTimer: number | undefined;
 
-function clearCompactTransitionTimer() {
-  if (compactTransitionTimer === undefined) return;
-  window.clearTimeout(compactTransitionTimer);
-  compactTransitionTimer = undefined;
-}
+function setScrollStage(stage: "top" | "compact") {
+  if (scrollStage.value === stage) return;
 
-function setScrollStage(stage: "top" | "medium" | "compact") {
+  hoverEnabled.value = stage !== "compact";
   scrollStage.value = stage;
-  isExpanded.value = stage === "medium";
+  isExpanded.value = false;
   menuOpen.value = false;
 }
 
 function updateScrollState() {
   const scrollY = window.scrollY;
 
-  if (scrollY <= 80) {
-    clearCompactTransitionTimer();
-    setScrollStage("top");
-    return;
-  }
-
-  if (scrollY <= 200) {
-    clearCompactTransitionTimer();
-    setScrollStage("medium");
-    return;
-  }
-
-  if (scrollStage.value === "top") setScrollStage("medium");
-
-  if (scrollStage.value === "medium" && compactTransitionTimer === undefined) {
-    compactTransitionTimer = window.setTimeout(() => {
-      compactTransitionTimer = undefined;
-      if (window.scrollY > 200) setScrollStage("compact");
-    }, 520);
-  }
+  setScrollStage(scrollY <= 80 ? "top" : "compact");
 }
 
 function closeMenu() {
@@ -68,12 +46,8 @@ function closeMenu() {
 function handleLogoClick(event: MouseEvent) {
   if (isScrolled.value && window.matchMedia("(max-width: 767px)").matches) {
     event.preventDefault();
-    if (scrollStage.value === "compact") {
-      isExpanded.value = !isExpanded.value;
-      menuOpen.value = isExpanded.value;
-    } else {
-      menuOpen.value = !menuOpen.value;
-    }
+    isExpanded.value = !isExpanded.value;
+    menuOpen.value = isExpanded.value;
     return;
   }
 
@@ -87,14 +61,23 @@ function expandNavbar() {
   if (window.matchMedia("(max-width: 767px)").matches) menuOpen.value = true;
 }
 
+function expandNavbarFromPointer() {
+  if (hoverEnabled.value) expandNavbar();
+}
+
+function handlePointerMove(event: PointerEvent) {
+  if (hoverEnabled.value || event.pointerType === "touch") return;
+  hoverEnabled.value = true;
+
+  if (event.target instanceof Element && event.target.closest("[data-floating-navbar]")) {
+    expandNavbar();
+  }
+}
+
 function collapseNavbar(event?: MouseEvent) {
   const nav = event?.currentTarget;
   if (nav instanceof HTMLElement && nav.contains(document.activeElement)) return;
 
-  if (scrollStage.value === "medium") {
-    menuOpen.value = false;
-    return;
-  }
   if (scrollStage.value !== "compact") return;
 
   isExpanded.value = false;
@@ -114,45 +97,56 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  clearCompactTransitionTimer();
   window.removeEventListener("scroll", updateScrollState);
 });
 </script>
 
 <template>
-  <header class="sticky top-0 z-50 h-nav" @keydown.esc="closeMenu">
+  <header class="pointer-events-none fixed inset-x-0 top-4 z-50" @keydown.esc="closeMenu">
     <div
-      class="flex items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-      :class="isScrolled
-        ? [
-            'fixed left-1/2 top-4 z-[60] h-14 -translate-x-1/2 rounded-full border-2 border-space-indigo bg-parchment shadow-retro',
-            isExpanded ? 'w-16 md:w-[min(44rem,calc(100vw-2rem))]' : 'w-16',
-          ]
-        : 'relative mx-auto h-full w-full max-w-content-wide justify-between border-b-2 border-space-indigo bg-parchment px-[clamp(1.5rem,4vw,4rem)]'"
-      @mouseenter="expandNavbar"
+      data-floating-navbar
+      class="pointer-events-auto relative mx-auto flex h-14 items-center rounded-full border-2 border-space-indigo bg-parchment shadow-retro transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+      :class="[
+        !isScrolled
+          ? 'w-[min(44rem,calc(100vw-2rem))] justify-between px-4'
+          : isExpanded
+            ? 'w-16 justify-center md:w-[min(44rem,calc(100vw-2rem))] md:justify-between md:px-4'
+            : 'w-16 justify-center',
+      ]"
+      @mouseenter="expandNavbarFromPointer"
       @mouseleave="collapseNavbar"
       @focusin="expandNavbar"
       @focusout="handleFocusOut"
+      @pointermove="handlePointerMove"
     >
       <a
         href="#home"
-        class="flex shrink-0 items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        :class="scrollStage === 'compact' && !isExpanded
-          ? 'absolute left-1/2 -translate-x-1/2'
-          : isScrolled ? 'ml-3' : ''"
+        class="absolute flex items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        :class="!isScrolled
+          ? 'left-4'
+          : isExpanded
+            ? 'left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0'
+            : 'left-1/2 -translate-x-1/2'"
         :aria-label="isScrolled && menuOpen ? 'Tutup navigasi' : 'Ghivalza Harviansyah, ke beranda'"
         :aria-expanded="isScrolled ? isExpanded : undefined"
         @click="handleLogoClick"
       >
-        <img :src="logoUrl" alt="Ghivalza Harviansyah" :class="isScrolled ? 'h-8 w-8 object-contain' : 'h-10 w-auto'" />
+        <img
+          :src="logoUrl"
+          alt="Ghivalza Harviansyah"
+          class="object-contain transition-[width,height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          :class="isScrolled ? 'h-8 w-10' : 'h-10 w-12'"
+        />
       </a>
 
       <nav
         aria-label="Navigasi utama"
-        class="ml-auto hidden items-center gap-6 transition-all duration-300 md:flex"
+        class="hidden max-w-[36rem] items-center gap-8 overflow-hidden transition-[max-width,opacity,margin] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] md:flex"
         :class="isScrolled
-          ? isExpanded ? 'mr-4 opacity-100' : 'pointer-events-none max-w-0 overflow-hidden opacity-0'
-          : 'mr-0 gap-8 opacity-100'"
+          ? isExpanded
+            ? 'ml-auto mr-4 max-w-[36rem] opacity-100'
+            : 'pointer-events-none ml-0 mr-0 max-w-0 opacity-0'
+          : 'ml-auto mr-0 opacity-100'"
         :inert="isScrolled && !isExpanded"
       >
         <a
