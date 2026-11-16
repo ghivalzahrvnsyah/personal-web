@@ -20,11 +20,18 @@ const scrollStage = ref<"top" | "compact">("top");
 const isExpanded = ref(false);
 const hoverEnabled = ref(true);
 const isMobileViewport = ref(false);
+const isSmallScreen = ref(false);
 const isScrolled = computed(() => scrollStage.value !== "top");
 const { activeSection } = useActiveSection(links.map((link) => link.id));
 
 function updateViewportState() {
   isMobileViewport.value = window.matchMedia("(max-width: 767px)").matches;
+  isSmallScreen.value = window.matchMedia("(max-width: 639px)").matches;
+  syncBottomNavigationSpace();
+}
+
+function syncBottomNavigationSpace() {
+  document.body.classList.toggle("mobile-bottom-nav-visible", isSmallScreen.value && isScrolled.value);
 }
 
 function setScrollStage(stage: "top" | "compact") {
@@ -34,6 +41,7 @@ function setScrollStage(stage: "top" | "compact") {
   scrollStage.value = stage;
   isExpanded.value = false;
   menuOpen.value = false;
+  syncBottomNavigationSpace();
 }
 
 function updateScrollState() {
@@ -105,6 +113,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScrollState);
   window.removeEventListener("resize", updateViewportState);
+  document.body.classList.remove("mobile-bottom-nav-visible");
 });
 </script>
 
@@ -115,10 +124,15 @@ onUnmounted(() => {
       class="pointer-events-auto relative mx-auto flex h-14 items-center rounded-full border-2 border-space-indigo bg-parchment shadow-retro transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
       :class="[
         !isScrolled
-          ? 'w-[min(44rem,calc(100vw-2rem))] justify-between px-4'
+          ? isSmallScreen
+            ? 'w-16 justify-center'
+            : 'w-[min(44rem,calc(100vw-2rem))] justify-between px-4'
           : isExpanded
             ? 'w-16 justify-center md:w-[min(44rem,calc(100vw-2rem))] md:justify-between md:px-4'
             : 'w-16 justify-center',
+        isSmallScreen && isScrolled
+          ? 'pointer-events-none -translate-y-2 opacity-0'
+          : 'translate-y-0 opacity-100',
       ]"
       @mouseenter="expandNavbarFromPointer"
       @mouseleave="collapseNavbar"
@@ -130,7 +144,7 @@ onUnmounted(() => {
         href="#home"
         class="absolute flex items-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
         :class="!isScrolled
-          ? 'left-4'
+          ? isSmallScreen ? 'left-1/2 -translate-x-1/2' : 'left-4'
           : isExpanded
             ? 'left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0'
             : 'left-1/2 -translate-x-1/2'"
@@ -189,5 +203,30 @@ onUnmounted(() => {
         </a>
       </nav>
     </div>
+
+    <Transition name="mobile-bottom-nav">
+      <nav
+        v-if="isSmallScreen && isScrolled"
+        aria-label="Navigasi utama"
+        class="mobile-bottom-navigation pointer-events-auto fixed inset-x-3 z-[60] mx-auto flex max-w-[28rem] items-center justify-around rounded-pill border-2 border-space-indigo bg-parchment px-2 py-2 shadow-retro sm:hidden"
+      >
+        <a
+          v-for="link in links"
+          :key="link.id"
+          :href="`#${link.id}`"
+          class="flex min-w-0 flex-1 flex-col items-center gap-1 rounded-pill py-2 font-body text-[0.625rem] font-medium leading-none transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-twilight-indigo"
+          :class="activeSection === link.id ? 'bg-bone text-space-indigo' : 'text-twilight-indigo hover:text-space-indigo'"
+          :aria-current="activeSection === link.id ? 'location' : undefined"
+          @click="closeMenu"
+        >
+          <svg v-if="link.id === 'home'" aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" /></svg>
+          <svg v-else-if="link.id === 'about'" aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5" /><path d="M5 21v-1a7 7 0 0 1 14 0v1" /></svg>
+          <svg v-else-if="link.id === 'skills'" aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-9 12h7l-1 8 10-13h-7z" /></svg>
+          <svg v-else-if="link.id === 'projects'" aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" /></svg>
+          <svg v-else aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+          <span>{{ link.label }}</span>
+        </a>
+      </nav>
+    </Transition>
   </header>
 </template>

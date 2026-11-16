@@ -133,6 +133,25 @@
   animation: typewriter-caret-blink 900ms step-end infinite;
 }
 
+.mobile-bottom-navigation {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.mobile-bottom-nav-enter-active,
+.mobile-bottom-nav-leave-active {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.mobile-bottom-nav-enter-from,
+.mobile-bottom-nav-leave-to {
+  opacity: 0;
+  transform: translateY(0.75rem);
+}
+
+body.mobile-bottom-nav-visible #app {
+  padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+}
+
 main[data-scroll-ready="true"] [data-scroll-reveal] {
   opacity: 0;
   transform: translateY(16px);
