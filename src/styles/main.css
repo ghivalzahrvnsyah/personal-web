@@ -146,6 +146,15 @@ main[data-scroll-ready="true"] [data-scroll-reveal][data-visible="true"] {
   transform: translateY(0);
 }
 
+@media (max-width: 767px) {
+  main[data-scroll-ready="true"] [data-scroll-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-entrance {
     animation: none;

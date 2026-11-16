@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from "vue";
-import BaseButton from "@/components/BaseButton.vue";
 import { useActiveSection } from "@/composables/useActiveSection";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -20,8 +19,13 @@ const menuOpen = ref(false);
 const scrollStage = ref<"top" | "compact">("top");
 const isExpanded = ref(false);
 const hoverEnabled = ref(true);
+const isMobileViewport = ref(false);
 const isScrolled = computed(() => scrollStage.value !== "top");
 const { activeSection } = useActiveSection(links.map((link) => link.id));
+
+function updateViewportState() {
+  isMobileViewport.value = window.matchMedia("(max-width: 767px)").matches;
+}
 
 function setScrollStage(stage: "top" | "compact") {
   if (scrollStage.value === stage) return;
@@ -44,7 +48,7 @@ function closeMenu() {
 }
 
 function handleLogoClick(event: MouseEvent) {
-  if (isScrolled.value && window.matchMedia("(max-width: 767px)").matches) {
+  if (isMobileViewport.value) {
     event.preventDefault();
     isExpanded.value = !isExpanded.value;
     menuOpen.value = isExpanded.value;
@@ -58,7 +62,7 @@ function expandNavbar() {
   if (scrollStage.value !== "compact") return;
 
   isExpanded.value = true;
-  if (window.matchMedia("(max-width: 767px)").matches) menuOpen.value = true;
+  if (isMobileViewport.value) menuOpen.value = true;
 }
 
 function expandNavbarFromPointer() {
@@ -92,12 +96,15 @@ function handleFocusOut(event: FocusEvent) {
 }
 
 onMounted(() => {
+  updateViewportState();
   updateScrollState();
   window.addEventListener("scroll", updateScrollState, { passive: true });
+  window.addEventListener("resize", updateViewportState, { passive: true });
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScrollState);
+  window.removeEventListener("resize", updateViewportState);
 });
 </script>
 
@@ -127,8 +134,10 @@ onUnmounted(() => {
           : isExpanded
             ? 'left-1/2 -translate-x-1/2 md:left-4 md:translate-x-0'
             : 'left-1/2 -translate-x-1/2'"
-        :aria-label="isScrolled && menuOpen ? 'Tutup navigasi' : 'Ghivalza Harviansyah, ke beranda'"
-        :aria-expanded="isScrolled ? isExpanded : undefined"
+        :aria-label="isMobileViewport
+          ? menuOpen ? 'Tutup navigasi' : 'Buka navigasi'
+          : 'Ghivalza Harviansyah, ke beranda'"
+        :aria-expanded="isMobileViewport ? menuOpen : isScrolled ? isExpanded : undefined"
         @click="handleLogoClick"
       >
         <img
@@ -161,16 +170,6 @@ onUnmounted(() => {
           {{ link.label }}
         </a>
       </nav>
-
-      <BaseButton
-        v-if="!isScrolled"
-        variant="hamburger"
-        class="md:hidden"
-        :aria-label="menuOpen ? 'Tutup navigasi' : 'Buka navigasi'"
-        :aria-expanded="menuOpen"
-        aria-controls="mobile-navigation"
-        @click="menuOpen = !menuOpen"
-      />
 
       <nav
         v-if="menuOpen"
