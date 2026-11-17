@@ -6,7 +6,6 @@
 
 @plugin "daisyui/theme" {
   name: "retro-vintage";
-  default: true;
   color-scheme: light;
   --color-base-100: #F7F2EB;
   --color-base-200: #EAE2D6;
@@ -23,6 +22,7 @@
 
 @plugin "daisyui/theme" {
   name: "retro-midnight";
+  default: true;
   color-scheme: dark;
   --color-base-100: #121830;
   --color-base-200: #1E2749;

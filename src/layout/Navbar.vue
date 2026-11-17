@@ -3,9 +3,10 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useActiveSection } from "@/composables/useActiveSection";
 import { supabase } from "@/lib/supabaseClient";
 
-const logoUrl = supabase.storage
+const isDarkTheme = ref(document.documentElement.dataset.theme === "retro-midnight");
+const logoUrl = computed(() => supabase.storage
   .from("portofolio-assets")
-  .getPublicUrl("logo/logo-gh.svg").data.publicUrl;
+  .getPublicUrl(`logo/${isDarkTheme.value ? "logo-gh(dark).svg" : "logo-gh.svg"}`).data.publicUrl);
 
 const links = [
   { id: "home", label: "Home" },
@@ -16,7 +17,6 @@ const links = [
 ];
 
 const menuOpen = ref(false);
-const isDarkTheme = ref(document.documentElement.dataset.theme === "retro-midnight");
 const scrollStage = ref<"top" | "compact">("top");
 const isExpanded = ref(false);
 const hoverEnabled = ref(true);

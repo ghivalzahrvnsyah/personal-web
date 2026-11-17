@@ -6,9 +6,9 @@
     <script>
       try {
         const savedTheme = localStorage.getItem("portfolio-theme");
-        document.documentElement.dataset.theme = savedTheme === "retro-midnight" ? savedTheme : "retro-vintage";
+        document.documentElement.dataset.theme = savedTheme === "retro-vintage" ? savedTheme : "retro-midnight";
       } catch {
-        document.documentElement.dataset.theme = "retro-vintage";
+        document.documentElement.dataset.theme = "retro-midnight";
       }
     </script>
     <link
@@ -33,7 +33,7 @@
     </noscript>
 
     <title>Ghivalza Harviansyah | Portofolio</title>
-    <link rel="icon" type="image/svg+xml" href="%VITE_SUPABASE_URL%/storage/v1/object/public/portofolio-assets/logo/logo-gh.svg" />
+    <link rel="icon" type="image/svg+xml" href="%VITE_SUPABASE_URL%/storage/v1/object/public/portofolio-assets/logo/logo-gh(dark).svg" />
 
     <meta
       name="description"
