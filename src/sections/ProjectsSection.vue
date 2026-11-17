@@ -41,7 +41,7 @@ function toggleProjects() {
             </div>
           </div>
         </div>
-        <p v-else-if="projects.length === 0" class="font-body text-twilight-indigo" data-scroll-reveal>Belum ada proyek untuk ditampilkan.</p>
+        <p v-else-if="projects.length === 0" class="font-body text-secondary-text" data-scroll-reveal>Belum ada proyek untuk ditampilkan.</p>
         <ProjectCard
           v-else
           v-for="project in visibleProjects"

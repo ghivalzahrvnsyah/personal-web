@@ -21,14 +21,70 @@
   --border: 2px;
 }
 
+@plugin "daisyui/theme" {
+  name: "retro-midnight";
+  color-scheme: dark;
+  --color-base-100: #121830;
+  --color-base-200: #1E2749;
+  --color-base-content: #EAE2D6;
+  --color-primary: #F7F2EB;
+  --color-primary-content: #121830;
+  --color-secondary: #273469;
+  --color-accent: #468FAF;
+  --color-error: #E8837B;
+  --radius-box: 2rem;
+  --radius-field: 0.75rem;
+  --border: 2px;
+}
+
+:root {
+  color-scheme: light;
+  --app-base-100: #F7F2EB;
+  --app-base-200: #EAE2D6;
+  --app-base-content: #1E2749;
+  --app-secondary-text: #1E2749;
+  --app-error: #8C2F2A;
+  --color-base-100: var(--app-base-100);
+  --color-base-200: var(--app-base-200);
+  --color-base-content: var(--app-base-content);
+  --color-secondary-text: var(--app-secondary-text);
+  --color-parchment: var(--app-base-100);
+  --color-bone: var(--app-base-200);
+  --color-space-indigo: var(--app-base-content);
+  --color-brick: var(--app-error);
+}
+
+:root[data-theme="retro-midnight"] {
+  color-scheme: dark;
+  --app-base-100: #121830;
+  --app-base-200: #1E2749;
+  --app-base-content: #EAE2D6;
+  --app-secondary-text: #EAE2D6;
+  --app-error: #E8837B;
+  --color-base-100: var(--app-base-100);
+  --color-base-200: var(--app-base-200);
+  --color-base-content: var(--app-base-content);
+  --color-secondary-text: var(--app-secondary-text);
+  --color-primary: #F7F2EB;
+  --color-primary-content: #121830;
+  --color-secondary: #273469;
+  --color-accent: #468FAF;
+  --color-error: var(--app-error);
+  --color-parchment: var(--app-base-100);
+  --color-bone: var(--app-base-200);
+  --color-space-indigo: var(--app-base-content);
+  --color-brick: var(--app-error);
+}
+
 @theme {
   --color-*: initial;
-  --color-parchment: #F7F2EB;
-  --color-bone: #EAE2D6;
-  --color-space-indigo: #1E2749;
+  --color-parchment: var(--app-base-100);
+  --color-bone: var(--app-base-200);
+  --color-space-indigo: var(--app-base-content);
+  --color-secondary-text: var(--app-secondary-text);
   --color-twilight-indigo: #273469;
   --color-air-force-blue: #468FAF;
-  --color-brick: #8C2F2A;
+  --color-brick: var(--app-error);
 
   --font-display: "Sora", "Trebuchet MS", sans-serif;
   --font-body: "Lexend", system-ui, sans-serif;
@@ -88,7 +144,7 @@
 }
 
 @utility bg-dialog-overlay {
-  background-color: rgba(30, 39, 73, 0.72);
+  background-color: color-mix(in srgb, var(--app-base-content) 72%, transparent);
 }
 
 @utility bg-retro-pattern {
@@ -200,8 +256,8 @@ main[data-scroll-ready="true"] [data-scroll-reveal][data-visible="true"] {
   }
 
   body {
-    background-color: var(--color-parchment);
-    color: var(--color-space-indigo);
+    background-color: var(--color-base-100);
+    color: var(--color-base-content);
     font-family: var(--font-body);
   }
 

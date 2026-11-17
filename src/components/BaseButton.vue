@@ -22,7 +22,7 @@ const classes = computed(() => {
   const base = "btn border-retro shadow-retro font-body font-bold transition duration-retro focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo";
 
   if (props.variant === "cta") {
-    return `${base} min-h-14 w-full rounded-pill bg-space-indigo px-8 text-cta text-parchment hover:border-twilight-indigo hover:bg-twilight-indigo md:w-auto`;
+    return `${base} min-h-14 w-full rounded-pill bg-primary px-8 text-cta text-primary-content hover:border-twilight-indigo hover:bg-primary/90 md:w-auto`;
   }
 
   if (props.variant === "hamburger") {
@@ -30,10 +30,10 @@ const classes = computed(() => {
   }
 
   if (props.iconOnly) {
-    return `${base} h-12 min-h-12 w-12 min-w-12 rounded-control bg-space-indigo p-0 text-base text-parchment hover:border-twilight-indigo hover:bg-twilight-indigo`;
+    return `${base} h-12 min-h-12 w-12 min-w-12 rounded-control bg-twilight-indigo p-0 text-base text-[#F7F2EB] hover:border-twilight-indigo hover:bg-twilight-indigo`;
   }
 
-  return `${base} min-h-12 rounded-control bg-space-indigo px-6 text-base text-parchment hover:border-twilight-indigo hover:bg-twilight-indigo`;
+  return `${base} min-h-12 rounded-control bg-twilight-indigo px-6 text-base text-[#F7F2EB] hover:border-twilight-indigo hover:bg-twilight-indigo`;
 });
 </script>
 

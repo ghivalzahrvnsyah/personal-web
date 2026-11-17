@@ -30,14 +30,14 @@ function markImageFailed(url: string) {
         loading="lazy"
         @error="markImageFailed(image.url)"
       />
-      <div v-if="!project.images.length || failedImages.length === project.images.length" class="flex aspect-video items-center justify-center font-body text-sm text-twilight-indigo">
+      <div v-if="!project.images.length || failedImages.length === project.images.length" class="flex aspect-video items-center justify-center font-body text-sm text-secondary-text">
         [Gambar proyek]
       </div>
     </div>
 
     <div class="grid gap-6 p-8">
       <h2 class="font-display text-h2-modal font-bold text-space-indigo">{{ project.title }}</h2>
-      <p class="font-body text-base leading-relaxed text-twilight-indigo">{{ project.description }}</p>
+      <p class="font-body text-base leading-relaxed text-secondary-text">{{ project.description }}</p>
       <ul class="flex flex-wrap gap-2" :aria-label="`Teknologi ${project.title}`">
         <li v-for="technology in project.techStack" :key="technology.label">
           <BaseSkillBadge :label="technology.label" :icon="technology.icon" :color="technology.color" />
@@ -62,8 +62,8 @@ function markImageFailed(url: string) {
         >
           Repository
         </BaseButton>
-        <p v-if="!project.demoUrl" class="font-body text-sm text-twilight-indigo">Demo: -</p>
-        <p v-if="!project.githubUrl" class="font-body text-sm text-twilight-indigo">Repository: -</p>
+        <p v-if="!project.demoUrl" class="font-body text-sm text-secondary-text">Demo: -</p>
+        <p v-if="!project.githubUrl" class="font-body text-sm text-secondary-text">Repository: -</p>
       </div>
     </div>
   </article>

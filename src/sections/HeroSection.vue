@@ -65,7 +65,7 @@ function handleHeroPhotoError(event: Event) {
   <SectionWrapper id="home" background="parchment" wide>
     <div class="relative flex min-h-hero-section flex-col items-center justify-center gap-8 overflow-hidden lg:flex-row lg:items-start lg:justify-between lg:gap-12 lg:pt-8">
       <div class="relative z-10 order-2 grid w-full min-w-0 justify-items-center gap-6 text-center lg:order-1 lg:w-auto lg:flex-1 lg:justify-items-start lg:text-left lg:basis-hero-art">
-        <p class="hero-entrance hero-entrance-1 font-body text-ui font-bold uppercase tracking-eyebrow text-twilight-indigo lg:text-base">
+        <p class="hero-entrance hero-entrance-1 font-body text-ui font-bold uppercase tracking-eyebrow text-secondary-text lg:text-base">
           Portofolio · {{ year }}
         </p>
 
@@ -74,11 +74,11 @@ function handleHeroPhotoError(event: Event) {
           <span>{{ lastName }}<span aria-hidden="true" class="text-air-force-blue">.</span></span>
         </h1>
 
-        <p class="hero-entrance hero-entrance-3 font-body text-base text-twilight-indigo lg:text-lg">
+        <p class="hero-entrance hero-entrance-3 font-body text-base text-secondary-text lg:text-lg">
           Bandung, Indonesia
         </p>
  
-        <p class="min-h-[3em] max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-twilight-indigo lg:min-h-[1.5em] lg:text-[clamp(1.5rem,2.2vw,2rem)]" aria-label="Mobile Android Developer, Software Engineer, UI/UX Enthusiast">
+        <p class="min-h-[3em] max-w-tagline font-body text-[clamp(1.125rem,1.8vw,1.375rem)] leading-relaxed text-secondary-text lg:min-h-[1.5em] lg:text-[clamp(1.5rem,2.2vw,2rem)]" aria-label="Mobile Android Developer, Software Engineer, UI/UX Enthusiast">
           <span class="typewriter-caret" aria-hidden="true">{{ typedRole }}</span>
         </p>
 
@@ -87,7 +87,7 @@ function handleHeroPhotoError(event: Event) {
             v-if="!isLoading && cvUrl"
             :href="cvUrl"
             download
-            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo px-8 font-body text-cta font-bold text-parchment shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo lg:w-auto lg:text-[1.375rem]"
+            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-primary px-8 font-body text-cta font-bold text-primary-content shadow-retro transition duration-retro hover:border-twilight-indigo hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo lg:w-auto lg:text-[1.375rem]"
           >
             Download CV
           </a>
@@ -100,7 +100,7 @@ function handleHeroPhotoError(event: Event) {
           <span
             v-else-if="!cvUrl"
             role="status"
-            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-space-indigo/50 px-8 font-body text-cta font-bold text-parchment lg:w-auto lg:text-[1.375rem]"
+            class="inline-flex min-h-14 w-full items-center justify-center rounded-pill border-retro bg-primary/50 px-8 font-body text-cta font-bold text-primary-content lg:w-auto lg:text-[1.375rem]"
           >
             CV belum tersedia
           </span>
@@ -110,7 +110,7 @@ function handleHeroPhotoError(event: Event) {
       <div class="hero-entrance hero-entrance-5 relative order-1 mx-auto aspect-square w-full max-w-[clamp(16rem,68vw,20rem)] shrink-0 lg:order-2 lg:mx-0 lg:max-w-[clamp(26rem,36vw,34rem)]">
         <div class="absolute inset-[4%] rotate-[-5deg] border-retro bg-air-force-blue" aria-hidden="true" />
         <div class="absolute inset-[2%] rotate-[4deg] border-retro bg-brick" aria-hidden="true" />
-        <div class="absolute inset-0 flex items-center justify-center overflow-hidden border-retro bg-bone font-body text-sm text-twilight-indigo shadow-retro-lg">
+        <div class="absolute inset-0 flex items-center justify-center overflow-hidden border-retro bg-bone font-body text-sm text-secondary-text shadow-retro-lg">
           <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto profil" class="h-full w-full" />
           <img v-else-if="profile.heroPhoto && !heroPhotoFailed" :src="profile.heroPhoto" :alt="`Foto profil ${firstName} ${lastName}`" class="h-full w-full object-cover object-[center_35%]" width="640" height="640" fetchpriority="high" decoding="async" @error="handleHeroPhotoError" />
           <span v-else>Foto profil belum tersedia</span>

@@ -51,7 +51,7 @@ function openInNewTab(url: string) {
           </a>
           <div class="grid gap-1 font-body text-base font-medium text-space-indigo">
             <h2 class="mb-2 font-display text-xl font-semibold">Let's Work Together:</h2>
-          <a href="#contact" class="hover:text-twilight-indigo">ghivalza.harviansyah10.com</a>
+          <a href="#contact" class="hover:text-secondary-text">ghivalza.harviansyah10.com</a>
             <span>+62 81958224565</span>
             <span>@ghivalzahrvnsyah</span>
           </div>
@@ -71,7 +71,7 @@ function openInNewTab(url: string) {
       </div>
 
       <div class="mt-8 border-t-2 border-space-indigo pt-6">
-        <p class="font-body text-sm text-twilight-indigo">©{{ profile?.copyrightName }} 2026. All rights reserved.</p>
+        <p class="font-body text-sm text-secondary-text">©{{ profile?.copyrightName }} 2026. All rights reserved.</p>
       </div>
     </Container>
   </footer>

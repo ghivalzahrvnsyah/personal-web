@@ -35,7 +35,7 @@ const errorId = computed(() => `${props.id}-error`);
       :autocomplete="autocomplete"
       :aria-invalid="invalid ? 'true' : undefined"
       :aria-describedby="invalid ? errorId : undefined"
-      class="min-h-12 w-full rounded-control border-retro bg-parchment px-4 py-3 font-body text-base text-space-indigo placeholder:text-twilight-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
+      class="min-h-12 w-full rounded-control border-retro bg-parchment px-4 py-3 font-body text-base text-space-indigo placeholder:text-secondary-text focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
     <div :id="errorId" class="min-h-6 font-body text-sm text-brick" aria-live="polite">

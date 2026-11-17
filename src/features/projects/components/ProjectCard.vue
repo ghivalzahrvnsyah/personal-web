@@ -32,7 +32,7 @@ watch(() => props.project.thumbnail, () => { imageFailed.value = false; });
         loading="lazy"
         @error="imageFailed = true"
       />
-      <div v-else class="flex h-full items-center justify-center font-body text-sm text-twilight-indigo">
+      <div v-else class="flex h-full items-center justify-center font-body text-sm text-secondary-text">
         [Thumbnail]
       </div>
     </div>

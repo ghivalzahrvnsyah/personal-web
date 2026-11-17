@@ -16,6 +16,7 @@ const links = [
 ];
 
 const menuOpen = ref(false);
+const isDarkTheme = ref(document.documentElement.dataset.theme === "retro-midnight");
 const scrollStage = ref<"top" | "compact">("top");
 const isExpanded = ref(false);
 const hoverEnabled = ref(true);
@@ -23,6 +24,18 @@ const isMobileViewport = ref(false);
 const isSmallScreen = ref(false);
 const isScrolled = computed(() => scrollStage.value !== "top");
 const { activeSection } = useActiveSection(links.map((link) => link.id));
+
+function toggleTheme() {
+  isDarkTheme.value = !isDarkTheme.value;
+  const theme = isDarkTheme.value ? "retro-midnight" : "retro-vintage";
+  document.documentElement.dataset.theme = theme;
+
+  try {
+    window.localStorage.setItem("portfolio-theme", theme);
+  } catch {
+    // The theme still works for this page view when storage is unavailable.
+  }
+}
 
 function updateViewportState() {
   isMobileViewport.value = window.matchMedia("(max-width: 767px)").matches;
@@ -119,6 +132,21 @@ onUnmounted(() => {
 
 <template>
   <header class="pointer-events-none fixed inset-x-0 top-4 z-50" @keydown.esc="closeMenu">
+    <button
+      type="button"
+      role="switch"
+      :aria-checked="isDarkTheme"
+      :aria-label="isDarkTheme ? 'Aktifkan light mode' : 'Aktifkan dark mode'"
+      class="pointer-events-auto fixed right-4 top-4 flex h-12 items-center gap-2 rounded-full border-2 border-space-indigo bg-parchment px-2 shadow-retro transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
+      @click="toggleTheme"
+    >
+      <svg aria-hidden="true" class="h-5 w-5 text-secondary-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></svg>
+      <span class="relative h-6 w-11 rounded-full bg-bone" aria-hidden="true">
+        <span class="absolute top-0.5 size-5 rounded-full bg-space-indigo shadow-sm transition-transform duration-300" :class="isDarkTheme ? 'translate-x-5' : 'translate-x-0.5'"></span>
+      </span>
+      <svg aria-hidden="true" class="h-5 w-5 text-secondary-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" /></svg>
+    </button>
+
     <div
       data-floating-navbar
       class="pointer-events-auto relative mx-auto flex h-14 items-center rounded-full border-2 border-space-indigo bg-parchment shadow-retro transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
@@ -126,9 +154,9 @@ onUnmounted(() => {
         !isScrolled
           ? isSmallScreen
             ? 'w-16 justify-center'
-            : 'w-[min(44rem,calc(100vw-2rem))] justify-between px-4'
+            : 'w-[min(44rem,calc(100vw-6rem))] justify-between px-4'
           : isExpanded
-            ? 'w-16 justify-center md:w-[min(44rem,calc(100vw-2rem))] md:justify-between md:px-4'
+            ? 'w-16 justify-center md:w-[min(44rem,calc(100vw-6rem))] md:justify-between md:px-4'
             : 'w-16 justify-center',
         isSmallScreen && isScrolled
           ? 'pointer-events-none -translate-y-2 opacity-0'
@@ -177,7 +205,7 @@ onUnmounted(() => {
           :key="link.id"
           :href="`#${link.id}`"
           class="whitespace-nowrap border-b-2 py-2 font-body text-ui font-medium transition-colors duration-200 hover:text-space-indigo focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
-          :class="activeSection === link.id ? 'border-air-force-blue text-space-indigo' : 'border-transparent text-twilight-indigo'"
+          :class="activeSection === link.id ? 'border-air-force-blue text-space-indigo' : 'border-transparent text-secondary-text'"
           :aria-current="activeSection === link.id ? 'location' : undefined"
           @click="closeMenu"
         >
@@ -215,7 +243,7 @@ onUnmounted(() => {
           :key="link.id"
           :href="`#${link.id}`"
           class="flex min-w-0 flex-1 flex-col items-center gap-1 rounded-pill py-2 font-body text-[0.625rem] font-medium leading-none transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-twilight-indigo"
-          :class="activeSection === link.id ? 'bg-bone text-space-indigo' : 'text-twilight-indigo hover:text-space-indigo'"
+          :class="activeSection === link.id ? 'bg-bone text-space-indigo' : 'text-secondary-text hover:text-space-indigo'"
           :aria-current="activeSection === link.id ? 'location' : undefined"
           @click="closeMenu"
         >

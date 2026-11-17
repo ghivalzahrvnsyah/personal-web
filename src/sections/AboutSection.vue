@@ -19,7 +19,7 @@ function handleAboutPhotoError(event: Event) {
     <div class="grid gap-12">
       <div class="flex flex-col items-center gap-12 lg:flex-row">
         <div class="relative mx-auto aspect-square w-full max-w-[16rem] shrink-0 lg:mx-0 lg:max-w-about-art" data-scroll-reveal>
-          <div class="absolute right-0 top-0 flex h-[14rem] w-[12rem] items-center justify-center overflow-hidden rounded-card border-retro bg-parchment font-body text-sm text-twilight-indigo lg:h-about-photo-height lg:w-about-photo-width">
+          <div class="absolute right-0 top-0 flex h-[14rem] w-[12rem] items-center justify-center overflow-hidden rounded-card border-retro bg-parchment font-body text-sm text-secondary-text lg:h-about-photo-height lg:w-about-photo-width">
             <BaseSkeleton v-if="isLoading" role="status" aria-label="Memuat foto formal" class="h-full w-full rounded-card" />
             <img v-else-if="profile.aboutPhoto && !aboutPhotoFailed" :src="profile.aboutPhoto" alt="Foto formal" class="h-full w-full object-cover" loading="lazy" @error="handleAboutPhotoError" />
             <span v-else>Foto formal belum tersedia</span>
@@ -30,10 +30,10 @@ function handleAboutPhotoError(event: Event) {
           <h2 class="font-display text-[clamp(2.5rem,7vw,4rem)] text-center font-bold text-space-indigo lg:text-left" data-scroll-reveal>
             <span aria-hidden="true">“</span>HELLO<span class="text-air-force-blue">.</span>
           </h2>
-          <p class="font-body text-body-lg leading-relaxed text-twilight-indigo" data-scroll-reveal>
+          <p class="font-body text-body-lg leading-relaxed text-secondary-text" data-scroll-reveal>
             {{ profile.aboutParagraphs[0] ?? "" }}
           </p>
-          <p class="font-body text-body-lg leading-relaxed text-twilight-indigo" data-scroll-reveal>
+          <p class="font-body text-body-lg leading-relaxed text-secondary-text" data-scroll-reveal>
             {{ profile.aboutParagraphs[1] ?? "" }}
           </p>
         </div>
