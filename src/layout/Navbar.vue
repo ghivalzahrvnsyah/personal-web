@@ -141,8 +141,11 @@ onUnmounted(() => {
       @click="toggleTheme"
     >
       <svg aria-hidden="true" class="h-5 w-5 text-secondary-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></svg>
-      <span class="relative h-6 w-11 rounded-full bg-bone" aria-hidden="true">
-        <span class="absolute top-0.5 size-5 rounded-full bg-space-indigo shadow-sm transition-transform duration-300" :class="isDarkTheme ? 'translate-x-5' : 'translate-x-0.5'"></span>
+      <span class="relative block h-6 w-11 shrink-0 rounded-full bg-bone" aria-hidden="true">
+        <span
+          class="absolute top-0.5 size-5 rounded-full bg-space-indigo shadow-sm transition-[left] duration-300"
+          :style="{ left: isDarkTheme ? '22px' : '2px' }"
+        ></span>
       </span>
       <svg aria-hidden="true" class="h-5 w-5 text-secondary-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" /></svg>
     </button>

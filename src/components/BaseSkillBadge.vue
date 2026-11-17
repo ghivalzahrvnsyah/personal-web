@@ -36,11 +36,22 @@ const readableBackground = computed(() => {
 
 <template>
   <span
-    class="inline-flex max-w-full items-center border-retro font-display font-semibold text-space-indigo shadow-retro"
+    class="skill-badge inline-flex max-w-full items-center border-retro font-display font-semibold text-space-indigo shadow-retro"
     :class="compact ? 'min-h-8 gap-1 rounded-control px-2 py-1 text-xs' : 'min-h-12 gap-2 rounded-control px-4 py-2 text-sm sm:text-base'"
-    :style="{ backgroundColor: readableBackground }"
+    :style="{ '--skill-light-background': readableBackground }"
   >
     <BrandIcon :icon="icon" :name="label" :compact="compact" />
     <span>{{ label }}</span>
   </span>
 </template>
+
+<style scoped>
+.skill-badge {
+  background-color: var(--skill-light-background);
+}
+
+:global(html[data-theme="retro-midnight"]) .skill-badge {
+  background-color: var(--color-base-200);
+  color: var(--color-base-content);
+}
+</style>
