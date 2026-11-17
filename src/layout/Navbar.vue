@@ -137,7 +137,11 @@ onUnmounted(() => {
       role="switch"
       :aria-checked="isDarkTheme"
       :aria-label="isDarkTheme ? 'Aktifkan light mode' : 'Aktifkan dark mode'"
-      class="pointer-events-auto fixed right-4 top-4 flex h-12 items-center gap-2 rounded-full border-2 border-space-indigo bg-parchment px-2 shadow-retro transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
+      class="pointer-events-auto fixed right-4 top-4 flex h-12 items-center gap-2 rounded-full border-2 border-space-indigo bg-parchment px-2 shadow-retro transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-twilight-indigo"
+      :class="isSmallScreen && isScrolled
+        ? 'pointer-events-none -translate-y-2 opacity-0'
+        : 'translate-y-0 opacity-100'"
+      :inert="isSmallScreen && isScrolled"
       @click="toggleTheme"
     >
       <svg aria-hidden="true" class="h-5 w-5 text-secondary-text" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></svg>
