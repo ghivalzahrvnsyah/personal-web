@@ -76,6 +76,11 @@
   --color-brick: var(--app-error);
 }
 
+html[data-theme="retro-midnight"] .skill-badge {
+  background-color: #1E2749 !important;
+  color: #EAE2D6 !important;
+}
+
 @theme {
   --color-*: initial;
   --color-parchment: var(--app-base-100);
