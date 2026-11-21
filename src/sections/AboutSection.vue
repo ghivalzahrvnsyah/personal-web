@@ -78,3 +78,4 @@ function handleAboutPhotoError(event: Event) {
     </div>
   </SectionWrapper>
 </template>
+          
