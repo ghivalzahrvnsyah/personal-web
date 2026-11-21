@@ -77,4 +77,4 @@ function handleAboutPhotoError(event: Event) {
       </div>
     </div>
   </SectionWrapper>
-</template>    
+</template>
