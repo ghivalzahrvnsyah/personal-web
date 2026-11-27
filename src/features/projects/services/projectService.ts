@@ -6,7 +6,7 @@ export async function getProjects(): Promise<Project[]> {
   const [{ data, error }, skills, { data: mockups, error: mockupsError }] = await Promise.all([
     supabase
       .from("projects")
-      .select("project_id, title, descriptions, image_url, tech_tags, github_url, demo_url, alt_text"),
+      .select("project_id, title, descriptions, problem, goal, solution, outcome, image_url, tech_tags, github_url, demo_url, alt_text"),
     getActiveSkills(),
     supabase
       .from("project_mockups")
@@ -27,6 +27,10 @@ export async function getProjects(): Promise<Project[]> {
     id: String(row.project_id),
     title: row.title,
     description: row.descriptions ?? "",
+    problem: row.problem ?? "",
+    goal: row.goal ?? "",
+    solution: row.solution ?? "",
+    outcome: row.outcome ?? "",
     thumbnail: row.image_url ?? "",
     thumbnailAlt: row.alt_text ?? `Gambar proyek ${row.title}`,
     images: [

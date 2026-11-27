@@ -2,6 +2,10 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  problem: string;
+  goal: string;
+  solution: string;
+  outcome: string;
   thumbnail: string;
   thumbnailAlt: string;
   images: ProjectImage[];
