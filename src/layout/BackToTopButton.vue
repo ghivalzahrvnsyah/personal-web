@@ -2,17 +2,12 @@
 import { onMounted, onUnmounted, ref } from "vue";
 
 const isVisible = ref(false);
-let aboutSection: HTMLElement | null = null;
 
 function updateVisibility() {
-  if (!aboutSection) return;
-
-  // Reveal the FAB shortly before About enters the viewport.
-  isVisible.value = aboutSection.getBoundingClientRect().top <= window.innerHeight - 80;
+  isVisible.value = window.scrollY > 80;
 }
 
 onMounted(() => {
-  aboutSection = document.getElementById("about");
   updateVisibility();
   window.addEventListener("scroll", updateVisibility, { passive: true });
   window.addEventListener("resize", updateVisibility);
